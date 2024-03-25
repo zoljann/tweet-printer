@@ -1,7 +1,26 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="footer">ovo je futer ide nesh bzvz</div>
+  <div class="footer">
+    <span
+      >👕 Premium kvalitet majica i šoljica
+      <p>
+        6.0 oz., 100% skupljeni pamuk u obliku prstena; idržljivi dvostruki
+        šavovi na rukavima i donjem rubu; bez trganja
+      </p></span
+    >
+    <span
+      >🚚 Opcije dostave
+      <p>
+        Dostava na području Bosne i Hercegovine, od datuma narudžbe kroz 5-7
+        radnih dana je narudžba na vašoj adresi
+      </p></span
+    >
+    <span
+      >💰 Način plaćanja
+      <p>Plaćanje pouzećem kuriru ili plaćanje VISA/MASTERCARD karticama 💳</p>
+    </span>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -10,6 +29,19 @@
   width: 100%;
   position: absolute;
   bottom: 0;
-  background-color: rgb(185, 185, 185);
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+
+  span {
+    display: grid;
+    align-content: center;
+    width: 20%;
+  }
+
+  p {
+    font-size: 12px;
+    color: rgb(206, 206, 206);
+  }
 }
 </style>

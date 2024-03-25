@@ -9,6 +9,7 @@ const designShirts = () => {
     isFieldEmpty.value = true;
     return;
   }
+  //jos dodat check za url imas na netu nac dal je validan url i to
 
   isFieldEmpty.value = false;
 
@@ -22,11 +23,11 @@ const designShirts = () => {
       <img src="../assets/images/models.png" />
     </div>
     <div class="print-tweet-section">
-      <h1>Isprintaj svoj tvit na majicu ili na šoljicu!🤗</h1>
+      <h1>Isprintaj svoj tvit na majicu ili na šoljicu❗🤗</h1>
       <input
         type="text"
         v-model="tweetUrl"
-        placeholder="Zalijepi link tvita ovdje"
+        placeholder="Zalijepi link tvita ovdje🎯"
       />
       <span v-if="isFieldEmpty" class="input-error"
         >Prvo moraš zalijepiti link tvita 😭</span
@@ -60,7 +61,7 @@ const designShirts = () => {
   }
 
   .print-tweet-section {
-    padding: 64px;
+    padding: 60px;
     display: flex;
     flex-direction: column;
 
@@ -77,7 +78,7 @@ const designShirts = () => {
 
     button {
       font-weight: bold;
-      color: rgb(236, 236, 236);
+      color: rgb(37, 37, 37);
       width: 50%;
       padding: 10px 20px;
       margin-top: 16px;
@@ -89,7 +90,8 @@ const designShirts = () => {
 
       &:hover {
         transition: 0.3s ease;
-        background-color: #4990a5;
+        background-color: #59a9c2;
+        color: rgb(0, 0, 0);
       }
     }
 
