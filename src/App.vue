@@ -5,9 +5,15 @@ import Footer from "./components/Footer.vue";
 </script>
 
 <template>
-  <Navigation />
-  <TweetSection />
-  <Footer />
+  <div class="app">
+    <Navigation />
+    <TweetSection />
+    <Footer />
+  </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.app {
+  height: 100vh;
+}
+</style>
