@@ -14,6 +14,12 @@ const router = createRouter({
       component: () => import("../views/QuestionsView.vue"),
     },
     {
+      path: "/order/:tweetUrl",
+      name: "order",
+      component: () => import("../views/OrderView.vue"),
+      props: true
+    },
+    {
       path: "/:catchAll(.*)*",
       name: "catchAll",
       component: () => import("../views/NotFoundView.vue"),

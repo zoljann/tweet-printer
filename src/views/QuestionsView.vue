@@ -50,4 +50,10 @@
     color: wheat;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .content {
+    width: 90%;
+  }
+}
 </style>

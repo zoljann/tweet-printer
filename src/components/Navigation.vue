@@ -52,4 +52,31 @@ const router = useRouter();
     }
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .navigation {
+    font-size: 14px;
+    padding-right: 16px;
+
+    .right-side {
+      width: 45%;
+    }
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .navigation {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .navigation {
+    font-size: 11px;
+
+    .right-side {
+      width: 40%;
+    }
+  }
+}
 </style>

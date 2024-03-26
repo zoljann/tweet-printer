@@ -1,26 +1,47 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const tweetUrl = ref("");
-const isFieldEmpty = ref(false);
+const errorMessage = ref("");
 
-const designShirts = () => {
+const redirectToOrder = () => {
   if (!tweetUrl.value) {
-    isFieldEmpty.value = true;
+    setErrorMessage("Prvo moraš zalijepiti link tvita 😭");
+
     return;
   }
-  //jos dodat check za url imas na netu nac dal je validan url i to
 
-  isFieldEmpty.value = false;
+  if (!isValidUrl(tweetUrl.value)) {
+    setErrorMessage("Nisi zalijepio ispravan link 😭");
 
-  console.log("open page with url", tweetUrl.value);
+    return;
+  }
+
+  errorMessage.value = "";
+  router.push({ name: "order", params: { tweetUrl: tweetUrl.value } });
+};
+
+const isValidUrl = (url: string) => {
+  try {
+    const newUrl = new URL(url);
+
+    return newUrl.protocol === "http:" || newUrl.protocol === "https:";
+  } catch (err) {
+    return false;
+  }
+};
+
+const setErrorMessage = (message: string) => {
+  errorMessage.value = message;
 };
 </script>
 
 <template>
   <div class="tweet-section">
     <div class="image-section">
-      <img src="../assets/images/models.png" />
+      <img class="img-desktop" src="../assets/images/models.png" />
     </div>
     <div class="print-tweet-section">
       <h1>Isprintaj svoj tvit na majicu ili na šoljicu❗🤗</h1>
@@ -29,15 +50,14 @@ const designShirts = () => {
         v-model="tweetUrl"
         placeholder="Zalijepi link tvita ovdje🎯"
       />
-      <span v-if="isFieldEmpty" class="input-error"
-        >Prvo moraš zalijepiti link tvita 😭</span
-      >
-      <button @click="designShirts()">Napravi majicu 👉</button>
+      <span v-if="errorMessage" class="input-error">{{ errorMessage }}</span>
+      <button @click="redirectToOrder()">Napravi majicu 👉</button>
       <p>
         Zalijepi link tvita u polje iznad i klikom na napravi majicu pređi na
         sljedeći korak uređivanja svoje majice ili šoljice 👕
       </p>
     </div>
+    <img class="img-mob" src="../assets/images/models-mob.png" />
   </div>
 </template>
 
@@ -55,9 +75,13 @@ const designShirts = () => {
   .image-section {
     text-align: right;
 
-    img {
+    .img-desktop {
       height: 500px;
     }
+  }
+
+  .img-mob {
+    display: none;
   }
 
   .print-tweet-section {
@@ -96,6 +120,67 @@ const designShirts = () => {
 
     p {
       width: 60%;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .tweet-section {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 10px;
+
+    .print-tweet-section {
+      display: flex;
+      align-items: center;
+      padding: 0;
+
+      p {
+        width: 90%;
+      }
+
+      button {
+        width: 70%;
+      }
+
+      input {
+        width: 90%;
+      }
+    }
+
+    .image-section {
+      .img-desktop {
+        display: none;
+      }
+    }
+
+    .img-mob {
+      display: block;
+      height: 300px;
+    }
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .tweet-section {
+    h1 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .tweet-section {
+    h1 {
+      font-size: 18px;
+    }
+    .img-mob {
+      height: 220px;
     }
   }
 }
