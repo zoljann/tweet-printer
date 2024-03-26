@@ -1,17 +1,17 @@
 <script setup lang="ts">
-const redirectToAboutPage = () => {
-  console.log("redirektaj na about");
-};
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 </script>
 
 <template>
   <div class="navigation">
-    <img src="../assets/favicon.png" />
+    <img src="../assets/favicon.png" @click="router.push({ name: 'home' })" />
     <a href="https://www.instagram.com/isprintajsvojtvit" target="_blank"
       >@isprintajsvojtvit 🥳</a
     >
     <div class="right-side">
-      <span @click="redirectToAboutPage">Česta pitanja🤔</span>
+      <span @click="router.push({ name: 'questions' })">Česta pitanja🤔</span>
     </div>
   </div>
 </template>
@@ -25,6 +25,7 @@ const redirectToAboutPage = () => {
 
   img {
     height: 60px;
+    cursor: pointer;
   }
 
   a {

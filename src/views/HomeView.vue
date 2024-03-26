@@ -78,20 +78,19 @@ const designShirts = () => {
 
     button {
       font-weight: bold;
-      color: rgb(37, 37, 37);
+      color: rgb(233, 233, 233);
       width: 50%;
       padding: 10px 20px;
       margin-top: 16px;
       font-size: 16px;
-      background-color: #4c98af;
+      background-color: #42879c;
       border: none;
       cursor: pointer;
       border-radius: 10px;
 
       &:hover {
         transition: 0.3s ease;
-        background-color: #59a9c2;
-        color: rgb(0, 0, 0);
+        background-color: #3a7586;
       }
     }
 
