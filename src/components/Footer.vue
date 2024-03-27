@@ -47,14 +47,7 @@
 
 @media only screen and (max-width: 768px) {
   .footer {
-    span {
-      font-size: 12px;
-      width: 30%;
-    }
-
-    p {
-      display: none;
-    }
+    display: none;
   }
 }
 </style>

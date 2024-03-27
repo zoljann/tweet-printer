@@ -51,10 +51,11 @@ const setErrorMessage = (message: string) => {
         placeholder="Zalijepi link tvita ovdje🎯"
       />
       <span v-if="errorMessage" class="input-error">{{ errorMessage }}</span>
-      <button @click="redirectToOrder()">Napravi majicu 👉</button>
+      <button @click="redirectToOrder()">Napravi majicu👉</button>
       <p>
-        Zalijepi link tvita u polje iznad i klikom na napravi majicu pređi na
-        sljedeći korak uređivanja svoje majice ili šoljice 👕
+        Zalijepi link tvita u polje iznad i klikom na
+        <span class="important-text">napravi majicu</span> pređi na sljedeći
+        korak uređivanja svoje majice ili šoljice👕
       </p>
     </div>
     <img class="img-mob" src="../assets/images/models-mob.png" />
@@ -121,6 +122,10 @@ const setErrorMessage = (message: string) => {
     p {
       width: 60%;
     }
+
+    .important-text {
+      color: tomato;
+    }
   }
 }
 
@@ -129,7 +134,11 @@ const setErrorMessage = (message: string) => {
     flex-direction: column;
     text-align: center;
     justify-content: center;
-    padding: 10px;
+
+    h1 {
+      font-size: 22px;
+      margin-top: 0;
+    }
 
     .print-tweet-section {
       display: flex;
@@ -138,6 +147,7 @@ const setErrorMessage = (message: string) => {
 
       p {
         width: 90%;
+        font-size: 13px;
       }
 
       button {

@@ -52,8 +52,21 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .questions {
+    justify-content: start;
+    margin-top: 20%;
+  }
+
   .content {
     width: 90%;
+  }
+
+  h3 {
+    font-size: 15px;
+  }
+
+  p {
+    font-size: 13px;
   }
 }
 </style>

@@ -8,7 +8,7 @@ const router = useRouter();
   <div class="navigation">
     <img src="../assets/favicon.png" @click="router.push({ name: 'home' })" />
     <a href="https://www.instagram.com/isprintajsvojtvit" target="_blank"
-      >@isprintajsvojtvit 🥳</a
+      >@isprintajsvojtvit🥳</a
     >
     <div class="right-side">
       <span @click="router.push({ name: 'questions' })">Česta pitanja🤔</span>
