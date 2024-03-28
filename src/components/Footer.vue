@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="footer">
     <span
@@ -25,7 +23,6 @@
 
 <style scoped lang="scss">
 .footer {
-  height: 7%;
   width: 100%;
   position: absolute;
   bottom: 0;
@@ -40,7 +37,7 @@
   }
 
   p {
-    font-size: 12px;
+    font-size: 0.8rem;
     color: rgb(206, 206, 206);
   }
 }

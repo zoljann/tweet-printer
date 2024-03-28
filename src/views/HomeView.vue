@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { isValidUrl } from "../helpers";
 
 const router = useRouter();
 const tweetUrl = ref("");
 const errorMessage = ref("");
 
-const redirectToOrder = () => {
+const redirectToOrderView = () => {
   if (!tweetUrl.value) {
     setErrorMessage("Prvo moraš zalijepiti link tvita 😭");
 
@@ -23,16 +24,6 @@ const redirectToOrder = () => {
   router.push({ name: "order", params: { tweetUrl: tweetUrl.value } });
 };
 
-const isValidUrl = (url: string) => {
-  try {
-    const newUrl = new URL(url);
-
-    return newUrl.protocol === "http:" || newUrl.protocol === "https:";
-  } catch (err) {
-    return false;
-  }
-};
-
 const setErrorMessage = (message: string) => {
   errorMessage.value = message;
 };
@@ -41,7 +32,7 @@ const setErrorMessage = (message: string) => {
 <template>
   <div class="tweet-section">
     <div class="image-section">
-      <img class="img-desktop" src="../assets/images/models.png" />
+      <img class="img-desktop" src="https://i.imgur.com/dkCr8xN.jpg" />
     </div>
     <div class="print-tweet-section">
       <h1>Isprintaj svoj tvit na majicu ili na šoljicu❗🤗</h1>
@@ -51,14 +42,14 @@ const setErrorMessage = (message: string) => {
         placeholder="Zalijepi link tvita ovdje🎯"
       />
       <span v-if="errorMessage" class="input-error">{{ errorMessage }}</span>
-      <button @click="redirectToOrder()">Napravi majicu👉</button>
+      <button @click="redirectToOrderView()">Napravi majicu👉</button>
       <p>
         Zalijepi link tvita u polje iznad i klikom na
         <span class="important-text">napravi majicu</span> pređi na sljedeći
         korak uređivanja svoje majice ili šoljice👕
       </p>
     </div>
-    <img class="img-mob" src="../assets/images/models-mob.png" />
+    <img class="img-mob" src="https://i.imgur.com/YUlgPOq.jpg" />
   </div>
 </template>
 
@@ -77,7 +68,7 @@ const setErrorMessage = (message: string) => {
     text-align: right;
 
     .img-desktop {
-      height: 500px;
+      height: 32rem;
     }
   }
 
@@ -86,32 +77,32 @@ const setErrorMessage = (message: string) => {
   }
 
   .print-tweet-section {
-    padding: 60px;
+    padding: 3.75rem;
     display: flex;
     flex-direction: column;
 
     input {
-      padding: 10px;
-      border-radius: 10px;
+      padding: 0.6rem;
+      border-radius: 0.6rem;
       width: 75%;
     }
 
     .input-error {
       color: tomato;
-      margin: 3px;
+      margin: 0.1rem;
     }
 
     button {
       font-weight: bold;
       color: rgb(233, 233, 233);
       width: 50%;
-      padding: 10px 20px;
-      margin-top: 16px;
-      font-size: 16px;
+      padding: 0.6rem 1.2rem;
+      margin-top: 1rem;
+      font-size: 1rem;
       background-color: #42879c;
       border: none;
       cursor: pointer;
-      border-radius: 10px;
+      border-radius: 0.6rem;
 
       &:hover {
         transition: 0.3s ease;
@@ -129,6 +120,16 @@ const setErrorMessage = (message: string) => {
   }
 }
 
+@media only screen and (max-width: 1250px) {
+  .tweet-section {
+    .image-section {
+      .img-desktop {
+        height: 22rem;
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .tweet-section {
     flex-direction: column;
@@ -136,7 +137,7 @@ const setErrorMessage = (message: string) => {
     justify-content: center;
 
     h1 {
-      font-size: 22px;
+      font-size: 1.3rem;
       margin-top: 0;
     }
 
@@ -147,7 +148,7 @@ const setErrorMessage = (message: string) => {
 
       p {
         width: 90%;
-        font-size: 13px;
+        font-size: 0.8rem;
       }
 
       button {
@@ -167,7 +168,7 @@ const setErrorMessage = (message: string) => {
 
     .img-mob {
       display: block;
-      height: 300px;
+      height: 18rem;
     }
   }
 }
@@ -175,11 +176,11 @@ const setErrorMessage = (message: string) => {
 @media only screen and (max-width: 380px) {
   .tweet-section {
     h1 {
-      font-size: 20px;
+      font-size: 1.2rem;
     }
 
     p {
-      font-size: 12px;
+      font-size: 0.7rem;
     }
   }
 }
@@ -187,10 +188,11 @@ const setErrorMessage = (message: string) => {
 @media only screen and (max-width: 350px) {
   .tweet-section {
     h1 {
-      font-size: 18px;
+      font-size: 1.1rem;
     }
+
     .img-mob {
-      height: 220px;
+      height: 13.5rem;
     }
   }
 }

@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="questions">
     <div class="content">
@@ -62,11 +60,11 @@
   }
 
   h3 {
-    font-size: 15px;
+    font-size: 1rem;
   }
 
   p {
-    font-size: 13px;
+    font-size: 0.8rem;
   }
 }
 </style>

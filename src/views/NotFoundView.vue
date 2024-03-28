@@ -8,7 +8,7 @@ const router = useRouter();
   <div class="not-found">
     <span> Oops izgleda da ova stranica ne postoji..😬 </span>
     <button class="button-back" @click="router.push({ name: 'home' })">
-      Nazad na početnu 👀
+      Nazad na početnu👀
     </button>
   </div>
 </template>
@@ -23,13 +23,13 @@ const router = useRouter();
   .button-back {
     font-weight: bold;
     color: rgb(233, 233, 233);
-    padding: 10px 20px;
-    margin-top: 25px;
-    font-size: 16px;
+    padding: 0.6rem 1.2rem;
+    margin-top: 1.5rem;
+    font-size: 1rem;
     background-color: #42879c;
     border: none;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 0.6;
 
     &:hover {
       transition: 0.3s ease;

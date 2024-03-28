@@ -6,7 +6,11 @@ const router = useRouter();
 
 <template>
   <div class="navigation">
-    <img src="../assets/favicon.png" @click="router.push({ name: 'home' })" />
+    <img
+      class="logo"
+      src="../assets/favicon.png"
+      @click="router.push({ name: 'home' })"
+    />
     <a href="https://www.instagram.com/isprintajsvojtvit" target="_blank"
       >@isprintajsvojtvit🥳</a
     >
@@ -20,11 +24,11 @@ const router = useRouter();
 .navigation {
   display: flex;
   align-items: center;
-  padding-top: 16px;
-  padding-left: 16px;
+  padding-top: 1rem;
+  padding-left: 1rem;
 
-  img {
-    height: 60px;
+  .logo {
+    height: 3.75rem;
     cursor: pointer;
   }
 
@@ -55,8 +59,8 @@ const router = useRouter();
 
 @media only screen and (max-width: 768px) {
   .navigation {
-    font-size: 14px;
-    padding-right: 16px;
+    font-size: 0.9rem;
+    padding-right: 1rem;
 
     .right-side {
       width: 45%;
@@ -66,13 +70,13 @@ const router = useRouter();
 
 @media only screen and (max-width: 380px) {
   .navigation {
-    font-size: 12px;
+    font-size: 0.8rem;
   }
 }
 
 @media only screen and (max-width: 350px) {
   .navigation {
-    font-size: 11px;
+    font-size: 0.7rem;
 
     .right-side {
       width: 40%;
