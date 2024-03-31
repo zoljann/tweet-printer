@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { isValidUrl } from "../helpers";
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { isValidUrl } from '../helpers';
 
 const router = useRouter();
-const tweetUrl = ref("");
-const errorMessage = ref("");
+const tweetUrl = ref('');
+const errorMessage = ref('');
 
 const redirectToOrderView = () => {
   if (!tweetUrl.value) {
-    setErrorMessage("Prvo moraš zalijepiti link tvita 😭");
+    setErrorMessage('Prvo moraš zalijepiti link tvita 😭');
 
     return;
   }
 
   if (!isValidUrl(tweetUrl.value)) {
-    setErrorMessage("Nisi zalijepio ispravan link 😭");
+    setErrorMessage('Nisi zalijepio ispravan link 😭');
 
     return;
   }
 
-  errorMessage.value = "";
-  router.push({ name: "order", params: { tweetUrl: tweetUrl.value } });
+  errorMessage.value = '';
+  router.push({ name: 'order', params: { tweetUrl: tweetUrl.value } });
 };
 
 const setErrorMessage = (message: string) => {

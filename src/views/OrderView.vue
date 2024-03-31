@@ -1,26 +1,31 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { isValidUrl } from "../helpers";
-import { createImagePreview } from "../api";
+import { onMounted, ref } from 'vue';
+import { isValidUrl } from '../helpers';
+import { createImagePreview } from '../api';
 import {
   Product,
   ProductColor,
   ProductSize,
+  ProductPrintSide,
   SvgShirtIconPath,
   SvgMugIconPath,
-} from "../interface";
+} from '../interface';
 
 const props = defineProps({
   tweetUrl: String,
 });
 
 const tweetUrl = ref(props.tweetUrl);
-const tweetUrlInput = ref("");
-const tweetUrlErrorMessage = ref("");
-const imagePreviewUrl = ref("");
+const tweetUrlInput = ref('');
+const tweetUrlErrorMessage = ref('');
+const imagePreviewUrl = ref('');
+const imagePreviewLoading = ref(false);
+const productPreviewErrorMessage = ref('');
+const productPricePreview = ref(null);
 const selectedProduct = ref(Product.SHIRT);
 const selectedColor = ref(ProductColor.WHITE);
 const selectedSize = ref(ProductSize.M);
+const selectedPrintSide = ref(ProductPrintSide.FRONT);
 const products = [
   {
     name: Product.SHIRT,
@@ -34,27 +39,56 @@ const products = [
 
 const updateTweetUrl = () => {
   if (!isValidUrl(tweetUrlInput.value) || !tweetUrlInput.value) {
-    tweetUrlErrorMessage.value = "Nisi zalijepio ispravan link😭";
+    tweetUrlErrorMessage.value = 'Nisi zalijepio ispravan link😭';
 
     return;
   }
 
   tweetUrl.value = tweetUrlInput.value;
-  tweetUrlErrorMessage.value = "";
+  tweetUrlErrorMessage.value = '';
 
   getProductPreview();
 };
 
 const getProductPreview = async () => {
+  imagePreviewLoading.value = true;
+
   const imagePreviewPayload = {
     product: selectedProduct.value,
-    tweetUrl: tweetUrl.value || "random moj tvit",
+    tweetUrl: tweetUrl.value || 'random moj tvit',
     color: selectedColor.value,
+    side: selectedPrintSide.value,
   };
 
-  const { image } = await createImagePreview(imagePreviewPayload);
+  const { image, pricePreview, error } = await createImagePreview(
+    imagePreviewPayload
+  );
+
+  if (error) {
+    //hendlat kad dodje nevazeci tvit url, itd nez jos koji use caseovi
+    productPreviewErrorMessage.value = 'neki eror';
+    setTimeout(() => {
+      productPreviewErrorMessage.value = '';
+    }, 2000);
+    imagePreviewLoading.value = false;
+
+    return;
+  }
+
   imagePreviewUrl.value = `data:image/jpeg;base64,${image}`;
-  //na rutu za dohvat slika postaviti da vrati error ukoliko ne nadje taj tvit
+  productPricePreview.value = pricePreview;
+  imagePreviewLoading.value = false;
+};
+
+const initiateOrder = () => {
+  const initiateOrderPayload = {
+    product: selectedProduct.value,
+    color: selectedColor.value,
+    size: selectedSize.value,
+    printSide: selectedPrintSide.value,
+  };
+
+  console.log('iniciraj->', initiateOrderPayload);
 };
 
 const setSelectedProduct = (product: Product) => {
@@ -69,9 +103,15 @@ const setSelectedProductColor = (color: ProductColor) => {
   getProductPreview();
 };
 
+const setSelectedPrintSide = (side: ProductPrintSide) => {
+  selectedPrintSide.value = side;
+
+  getProductPreview();
+};
+
 onMounted(() => {
   if (!isValidUrl(tweetUrl.value) || !tweetUrl.value) {
-    tweetUrlErrorMessage.value = "Uneseni link ne postoji😭";
+    tweetUrlErrorMessage.value = 'Uneseni link ne postoji😭';
 
     return;
   }
@@ -120,11 +160,15 @@ onMounted(() => {
           <title id="title">{{ product.name }}</title>
           <path :d="product.path"></path>
         </svg>
-        <span>{{ product.name === Product.SHIRT ? "Majica" : "Šolja" }}</span>
+        <span>{{ product.name === Product.SHIRT ? 'Majica' : 'Šolja' }}</span>
       </div>
     </div>
 
-    <div class="product-preview">
+    <span v-if="productPreviewErrorMessage" class="product-preview-error">{{
+      productPreviewErrorMessage
+    }}</span>
+    <div class="product-preview" :class="{ fade: imagePreviewLoading }">
+      <div v-if="imagePreviewLoading" class="loader"></div>
       <img class="image-preview" :src="imagePreviewUrl" />
     </div>
 
@@ -150,6 +194,27 @@ onMounted(() => {
         {{ size }}
       </div>
     </div>
+
+    <div class="print-side-picker" v-if="selectedProduct === Product.SHIRT">
+      <div
+        v-for="side in Object.values(ProductPrintSide)"
+        :key="side"
+        class="print-side-value"
+        :class="{ active: selectedPrintSide === side }"
+        @click="selectedPrintSide !== side && setSelectedPrintSide(side)"
+      >
+        {{ side }}
+      </div>
+    </div>
+
+    <button
+      class="price-preview-button"
+      :class="{ disabled: imagePreviewLoading }"
+      :disabled="imagePreviewLoading"
+      @click="initiateOrder"
+    >
+      {{ productPricePreview }} KM | Kupi
+    </button>
   </div>
 </template>
 
@@ -225,12 +290,41 @@ onMounted(() => {
 }
 
 .product-preview {
-  background-color: wheat;
   height: 45%;
   width: 20%;
 
+  &-error {
+    color: tomato;
+  }
+
+  &.fade {
+    opacity: 0.5;
+  }
+
   .image-preview {
     width: 100%;
+  }
+
+  .loader {
+    position: absolute;
+    top: 47%;
+    left: 48.5%;
+    transform: translate(-50%, -50%);
+    width: 2rem;
+    height: 2rem;
+    border: 4px solid #3498db;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: loader-animation 0.8s linear infinite;
+  }
+
+  @keyframes loader-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
 
@@ -274,6 +368,48 @@ onMounted(() => {
       transition: 0.3s ease;
       background-color: rgba(94, 148, 165, 0.322);
     }
+  }
+}
+
+.print-side-picker {
+  display: flex;
+
+  .print-side-value {
+    margin: 1rem;
+    padding: 0.3rem 1rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+
+    &.active {
+      background-color: #42879c;
+    }
+
+    &:not(.active):hover {
+      transition: 0.3s ease;
+      background-color: rgba(94, 148, 165, 0.322);
+    }
+  }
+}
+
+.price-preview-button {
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  padding: 0.6rem 1.2rem;
+  margin-left: 1rem;
+  font-size: 1rem;
+  background-color: #c07c2f;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+
+  &:not(.disabled):hover {
+    transition: 0.3s ease;
+    background-color: #8a6031;
+  }
+
+  &.disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
   }
 }
 </style>

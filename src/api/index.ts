@@ -1,16 +1,18 @@
-import http from "./http";
-import { AxiosError } from "axios";
-import { IImagePreview } from "../interface";
+import http from './http';
+import { AxiosError } from 'axios';
+import { IImagePreview } from '../interface';
 
 export const createImagePreview = async ({
   product,
   tweetUrl,
   color,
+  side,
 }: IImagePreview) => {
   const params = {
     product,
     tweetUrl,
     color,
+    side,
   };
 
   try {
