@@ -5,6 +5,15 @@ export interface IImagePreview {
   side: string;
 }
 
+export interface CartItem {
+  product: Product;
+  color: ProductColor;
+  size: ProductSize;
+  printSide: ProductPrintSide;
+  image: string;
+  price: number;
+}
+
 export enum Product {
   SHIRT = 'shirt',
   MUG = 'mug',

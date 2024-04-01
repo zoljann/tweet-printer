@@ -14,10 +14,14 @@ const router = createRouter({
       component: () => import('../views/QuestionsView.vue'),
     },
     {
-      path: '/order/:tweetUrl',
+      path: '/order',
       name: 'order',
       component: () => import('../views/OrderView.vue'),
-      props: true,
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: () => import('../views/CartView.vue'),
     },
     {
       path: '/:catchAll(.*)*',

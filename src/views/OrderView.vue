@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from '../store';
 import { isValidUrl } from '../helpers';
 import { createImagePreview } from '../api';
 import {
@@ -9,19 +11,18 @@ import {
   ProductPrintSide,
   SvgShirtIconPath,
   SvgMugIconPath,
+  CartItem,
 } from '../interface';
 
-const props = defineProps({
-  tweetUrl: String,
-});
-
-const tweetUrl = ref(props.tweetUrl);
+const router = useRouter();
+const store = useStore();
+const tweetUrl = ref(store.getCurrentTweetUrl);
 const tweetUrlInput = ref('');
 const tweetUrlErrorMessage = ref('');
 const imagePreviewUrl = ref('');
 const imagePreviewLoading = ref(false);
 const productPreviewErrorMessage = ref('');
-const productPricePreview = ref(null);
+const productPricePreview = ref(0);
 const selectedProduct = ref(Product.SHIRT);
 const selectedColor = ref(ProductColor.WHITE);
 const selectedSize = ref(ProductSize.M);
@@ -65,12 +66,12 @@ const getProductPreview = async () => {
   );
 
   if (error) {
-    //hendlat kad dodje nevazeci tvit url, itd nez jos koji use caseovi
-    productPreviewErrorMessage.value = 'neki eror';
+    productPreviewErrorMessage.value = error;
+    imagePreviewLoading.value = false;
+
     setTimeout(() => {
       productPreviewErrorMessage.value = '';
-    }, 2000);
-    imagePreviewLoading.value = false;
+    }, 2500);
 
     return;
   }
@@ -80,15 +81,18 @@ const getProductPreview = async () => {
   imagePreviewLoading.value = false;
 };
 
-const initiateOrder = () => {
-  const initiateOrderPayload = {
+const redirectToCartView = () => {
+  const cartItem: CartItem = {
     product: selectedProduct.value,
     color: selectedColor.value,
     size: selectedSize.value,
     printSide: selectedPrintSide.value,
+    image: imagePreviewUrl.value,
+    price: productPricePreview.value,
   };
 
-  console.log('iniciraj->', initiateOrderPayload);
+  store.cartItems.push(cartItem);
+  router.push({ name: 'cart' });
 };
 
 const setSelectedProduct = (product: Product) => {
@@ -211,7 +215,7 @@ onMounted(() => {
       class="price-preview-button"
       :class="{ disabled: imagePreviewLoading }"
       :disabled="imagePreviewLoading"
-      @click="initiateOrder"
+      @click="redirectToCartView"
     >
       {{ productPricePreview }} KM | Kupi
     </button>
@@ -220,7 +224,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .order-content {
-  height: 83%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -291,7 +294,7 @@ onMounted(() => {
 
 .product-preview {
   height: 45%;
-  width: 20%;
+  width: 30%;
 
   &-error {
     color: tomato;

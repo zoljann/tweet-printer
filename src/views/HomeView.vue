@@ -1,27 +1,28 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from '../store';
 import { isValidUrl } from '../helpers';
 
 const router = useRouter();
+const store = useStore();
 const tweetUrl = ref('');
 const errorMessage = ref('');
 
 const redirectToOrderView = () => {
-  if (!tweetUrl.value) {
-    setErrorMessage('Prvo moraš zalijepiti link tvita 😭');
-
-    return;
-  }
-
-  if (!isValidUrl(tweetUrl.value)) {
-    setErrorMessage('Nisi zalijepio ispravan link 😭');
+  if (!tweetUrl.value || !isValidUrl(tweetUrl.value)) {
+    setErrorMessage(
+      !tweetUrl.value
+        ? 'Prvo moraš zalijepiti link tvita 😭'
+        : 'Nisi zalijepio ispravan link 😭'
+    );
 
     return;
   }
 
   errorMessage.value = '';
-  router.push({ name: 'order', params: { tweetUrl: tweetUrl.value } });
+  store.currentTweetUrl = tweetUrl.value;
+  router.push({ name: 'order' });
 };
 
 const setErrorMessage = (message: string) => {

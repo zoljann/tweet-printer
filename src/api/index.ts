@@ -23,9 +23,9 @@ export const createImagePreview = async ({
     const error = e instanceof AxiosError && e.response ? e.response.data : e;
 
     return {
-      error: true,
-      message: error.message,
-      ...error,
-    }; //vidit kako cemo hendlat errore
+      error:
+        error.message ||
+        'Ne možemo generisati sliku sa proslijeđenim linkom 😭',
+    };
   }
 };
