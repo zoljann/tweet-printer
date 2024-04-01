@@ -5,13 +5,24 @@ export interface IImagePreview {
   side: string;
 }
 
-export interface CartItem {
+export interface ICartItem {
   product: Product;
   color: ProductColor;
   size: ProductSize;
   printSide: ProductPrintSide;
+  tweetUrl: string;
   image: string;
   price: number;
+}
+
+export interface IOrderPayload {
+  name: string;
+  mobileNumber: string;
+  state: string;
+  city: string;
+  address: string;
+  shipping: string;
+  items: any[];
 }
 
 export enum Product {

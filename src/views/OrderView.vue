@@ -11,7 +11,7 @@ import {
   ProductPrintSide,
   SvgShirtIconPath,
   SvgMugIconPath,
-  CartItem,
+  ICartItem,
 } from '../interface';
 
 const router = useRouter();
@@ -45,6 +45,8 @@ const updateTweetUrl = () => {
     return;
   }
 
+  if (tweetUrlInput.value === tweetUrl.value) return;
+
   tweetUrl.value = tweetUrlInput.value;
   tweetUrlErrorMessage.value = '';
 
@@ -56,7 +58,9 @@ const getProductPreview = async () => {
 
   const imagePreviewPayload = {
     product: selectedProduct.value,
-    tweetUrl: tweetUrl.value || 'random moj tvit',
+    tweetUrl:
+      tweetUrl.value ||
+      'https://twitter.com/MicinStojan/status/1769816973293052119',
     color: selectedColor.value,
     side: selectedPrintSide.value,
   };
@@ -82,16 +86,21 @@ const getProductPreview = async () => {
 };
 
 const redirectToCartView = () => {
-  const cartItem: CartItem = {
+  const cartItem: ICartItem = {
     product: selectedProduct.value,
     color: selectedColor.value,
     size: selectedSize.value,
     printSide: selectedPrintSide.value,
+    tweetUrl: tweetUrl.value,
     image: imagePreviewUrl.value,
     price: productPricePreview.value,
   };
+  const storedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
+  storedCartItems.push(cartItem);
+  localStorage.setItem('cartItems', JSON.stringify(storedCartItems));
   store.cartItems.push(cartItem);
+
   router.push({ name: 'cart' });
 };
 
@@ -114,12 +123,6 @@ const setSelectedPrintSide = (side: ProductPrintSide) => {
 };
 
 onMounted(() => {
-  if (!isValidUrl(tweetUrl.value) || !tweetUrl.value) {
-    tweetUrlErrorMessage.value = 'Uneseni link ne postoji😭';
-
-    return;
-  }
-
   tweetUrlInput.value = tweetUrl.value;
 
   getProductPreview();
