@@ -143,7 +143,7 @@ onMounted(() => {
         :disabled="imagePreviewLoading"
         class="tweet-url-submit"
       >
-        Izmjeni link
+        Izmijeni link
       </button>
     </div>
     <span v-if="tweetUrlErrorMessage" class="input-error">{{
@@ -366,12 +366,12 @@ onMounted(() => {
   align-items: center;
 
   .color-circle {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
     margin: 10px;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 0.3rem solid transparent;
 
     &:not(.disabled):hover {
       opacity: 0.6;
@@ -488,7 +488,7 @@ onMounted(() => {
     }
   }
   .product-preview {
-    width: 95%;
+    width: 96%;
   }
 
   .size-picker {

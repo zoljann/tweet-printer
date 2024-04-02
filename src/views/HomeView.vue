@@ -51,7 +51,7 @@ const setErrorMessage = (message: string) => {
         korak uređivanja svoje majice ili šoljice👕
       </p>
     </div>
-    <img class="img-mob" src="https://i.imgur.com/YUlgPOq.jpg" />
+    <img class="img-mob" src="https://i.imgur.com/SgFI3rk.jpg" />
   </div>
   <Footer />
 </template>

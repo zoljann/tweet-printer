@@ -90,4 +90,10 @@ const closeNotification = () => {
   border: none;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 768px) {
+  .notification {
+    width: 80%;
+  }
+}
 </style>

@@ -132,9 +132,9 @@ onMounted(() => {
         <div class="product-info">
           <img :src="item.image" class="product-image" />
           <div class="details-and-price">
-            <div class="product-name">
+            <span class="product-name">
               {{ formatProductName(item.product) }}
-            </div>
+            </span>
             <span>{{ formatColorName(item.color) }} boja</span>
             <span v-if="item.product !== Product.MUG"
               >{{ item.size }} veličina</span
@@ -142,73 +142,84 @@ onMounted(() => {
             <span v-if="item.product !== Product.MUG">{{
               item.printSide
             }}</span>
-            <div class="price">{{ item.price }}KM</div>
+            <span class="price">{{ item.price }}KM</span>
           </div>
-          <span class="remove-item" @click="removeItemFromCart(item)"
-            >Obriši</span
-          >
+          <button class="remove-item-button" @click="removeItemFromCart(item)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="25"
+              height="25"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M16 6v-2a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+              <path d="M21 9v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9"></path>
+              <rect x="3" y="3" width="18" height="4"></rect>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
-
+    <hr class="mobile-line" />
     <div class="checkout">
-      <div class="user-data">
-        <h3>Informacije o narudžbi</h3>
-        <form novalidate>
-          <div class="form-group">
-            <label>Ime i prezime</label>
-            <input
-              type="text"
-              v-model="name"
-              placeholder="Ime i prezime"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label>Broj mobitela</label>
-            <input
-              type="tel"
-              v-model="mobileNumber"
-              placeholder="Broj mobitela"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="state">Država</label>
-            <select id="state" v-model="state" name="state" required>
-              <option value="BiH">Bosna i Hercegovina</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Grad</label>
-            <input type="text" v-model="city" placeholder="Grad" required />
-          </div>
-          <div class="form-group">
-            <label>Adresa</label>
-            <input
-              type="text"
-              v-model="address"
-              placeholder="Adresa"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <div>
-              <input
-                type="radio"
-                v-model="shipping"
-                name="state"
-                value="pickup"
-                required
-              />
-              <span for="bih">Plaćanje pouzećem</span>
-            </div>
-          </div>
-          <span class="input-error">{{ inputErrorMessage }}</span>
-          <div class="total-price">Ukupno: {{ calculateTotalPrice() }}KM</div>
-        </form>
-        <button class="checkout-button" @click="checkoutOrder">Naruči</button>
-      </div>
+      <h3>Informacije o primaocu</h3>
+      <form novalidate>
+        <div class="form-group">
+          <label>Ime i prezime</label>
+          <input
+            type="text"
+            v-model="name"
+            placeholder="Ime i prezime"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Broj mobitela</label>
+          <input
+            type="tel"
+            v-model="mobileNumber"
+            placeholder="Broj mobitela"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="state">Država</label>
+          <select id="state" v-model="state" name="state" required>
+            <option value="BiH">Bosna i Hercegovina</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Grad</label>
+          <input type="text" v-model="city" placeholder="Grad" required />
+        </div>
+        <div class="form-group">
+          <label>Adresa</label>
+          <input type="text" v-model="address" placeholder="Adresa" required />
+        </div>
+        <div>
+          <input
+            type="radio"
+            v-model="shipping"
+            name="state"
+            value="pickup"
+            required
+          />
+          <span for="bih">Plaćanje pouzećem</span>
+        </div>
+        <span class="input-error">{{ inputErrorMessage }}</span>
+        <div class="total-price">
+          Ukupno:
+          <span class="total-price-value"> {{ calculateTotalPrice() }}KM</span>
+        </div>
+      </form>
+      <button class="checkout-button" @click="checkoutOrder">Naruči</button>
     </div>
   </div>
 </template>
@@ -217,84 +228,163 @@ onMounted(() => {
   display: flex;
 }
 
+.mobile-line {
+  display: none;
+}
+
 .cart {
   width: 50%;
   display: flex;
-  align-items: center;
   flex-direction: column;
 
   .cart-item {
-    padding: 1rem;
+    margin: 1rem 3rem;
   }
 
   .product-info {
     display: flex;
+    align-items: center;
+    justify-content: right;
+
+    .remove-item-button {
+      padding: 0.4rem 0.5rem;
+      background-color: #8f8f8f;
+      border: none;
+      cursor: pointer;
+      border-radius: 0.5rem;
+
+      &:hover {
+        transition: 0.3s ease;
+        background-color: #3a75868c;
+      }
+    }
   }
 
   .product-image {
-    width: 150px;
-    height: 150px;
+    width: 15rem;
+    height: 15rem;
   }
 
   .details-and-price {
     display: flex;
     flex-direction: column;
+    margin: 1rem;
   }
 
   .product-name {
     text-transform: capitalize;
     font-weight: bold;
+    margin-bottom: 1rem;
   }
 
   .price {
     font-weight: bold;
     font-size: 1.2em;
     margin-top: auto;
-  }
-
-  .remove-item {
-    text-align: right;
+    color: rgb(34, 145, 130);
   }
 }
 
 .checkout {
   width: 50%;
+  margin: 1rem 3rem;
 
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
   }
 
   .input-error {
+    margin: 1rem 0;
     display: block;
     color: tomato;
   }
 
   .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 0.2rem;
   }
 
   .form-group input,
   .form-group select {
+    width: 50%;
     padding: 0.5rem;
     border: none;
     border-radius: 0.2rem;
   }
 
   .checkout-button {
-    padding: 1rem;
-    padding: 10px 20px;
+    margin: 1.5rem 0;
+    width: 50%;
+    padding: 0.8rem 3rem;
+    background-color: rgb(34, 145, 130);
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    color: white;
 
     &:hover {
-      background-color: #0056b3;
+      transition: 0.3s ease;
+      background-color: #3a75868c;
     }
   }
 
   .total-price {
     font-weight: bold;
+    text-decoration: underline;
+
+    &-value {
+      font-size: 1.2rem;
+      color: rgb(34, 145, 130);
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .mobile-line {
+    display: block;
+    width: 95%;
+  }
+
+  .cart {
+    width: 95%;
+    align-items: center;
+
+    .cart-item {
+      text-align: center;
+      margin: 0;
+    }
+
+    .product-image {
+      width: 8rem;
+      height: 8rem;
+    }
+
+    .remove-item-button {
+      margin-left: 2rem;
+    }
+  }
+
+  .checkout {
+    width: 95%;
+    margin: 0 0.5rem;
+
+    form {
+      text-align: center;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 90%;
+    }
+
+    .checkout-button {
+      width: 100%;
+    }
   }
 }
 </style>
