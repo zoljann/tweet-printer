@@ -21,6 +21,7 @@ export const createImagePreview = async ({
     return result.data;
   } catch (e) {
     const error = e instanceof AxiosError && e.response ? e.response.data : e;
+    console.log(error);
 
     return {
       error:
@@ -37,6 +38,7 @@ export const createOrder = async (orderPayload: IOrderPayload) => {
     return result.data;
   } catch (e) {
     const error = e instanceof AxiosError && e.response ? e.response.data : e;
+    console.log(error);
 
     return {
       error:
