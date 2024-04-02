@@ -29,7 +29,6 @@
   display: flex;
   justify-content: space-around;
   text-align: center;
-  display: none;
 
   span {
     display: grid;
@@ -40,6 +39,24 @@
   p {
     font-size: 0.8rem;
     color: rgb(206, 206, 206);
+  }
+}
+
+@media only screen and (max-height: 650px) {
+  .footer {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .footer {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      width: 90%;
+    }
   }
 }
 </style>

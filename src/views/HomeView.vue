@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import Footer from '../components/Footer.vue';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
 import { isValidUrl } from '../helpers';
@@ -52,6 +53,7 @@ const setErrorMessage = (message: string) => {
     </div>
     <img class="img-mob" src="https://i.imgur.com/YUlgPOq.jpg" />
   </div>
+  <Footer />
 </template>
 
 <style scoped lang="scss">
@@ -133,9 +135,9 @@ const setErrorMessage = (message: string) => {
 
 @media only screen and (max-width: 768px) {
   .tweet-section {
+    margin-top: 10%;
     flex-direction: column;
     text-align: center;
-    justify-content: center;
 
     h1 {
       font-size: 1.3rem;
@@ -169,7 +171,7 @@ const setErrorMessage = (message: string) => {
 
     .img-mob {
       display: block;
-      height: 18rem;
+      width: 90%;
     }
   }
 }
@@ -190,10 +192,6 @@ const setErrorMessage = (message: string) => {
   .tweet-section {
     h1 {
       font-size: 1.1rem;
-    }
-
-    .img-mob {
-      height: 13.5rem;
     }
   }
 }

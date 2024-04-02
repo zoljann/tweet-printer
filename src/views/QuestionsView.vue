@@ -17,8 +17,8 @@
       <h3>Slobodno pitaj🙌</h3>
       <p>
         Za ostala pitanja, suradnje, nedoumice i ostalo možeš nam
-        <a href="mailto:someone@example.com">poslati email</a> ili ako više
-        preferiraš možeš nam se obratiti putem instagrama na
+        <a href="mailto:isprintajsvojtvit@gmail.com">poslati email</a> ili ako
+        više preferiraš možeš nam se obratiti putem instagrama na
         <a href="https://www.instagram.com/isprintajsvojtvit" target="_blank"
           >@isprintajsvojtvit🥳</a
         >

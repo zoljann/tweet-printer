@@ -138,7 +138,11 @@ onMounted(() => {
         type="text"
         placeholder="Zalijepi novi link tvita ovdje🎯"
       />
-      <button @click="updateTweetUrl()" class="tweet-url-submit">
+      <button
+        @click="updateTweetUrl()"
+        :disabled="imagePreviewLoading"
+        class="tweet-url-submit"
+      >
         Izmjeni link
       </button>
     </div>
@@ -146,15 +150,19 @@ onMounted(() => {
       tweetUrlErrorMessage
     }}</span>
 
-    <div class="icons">
-      <div
+    <div class="button-icons">
+      <button
         v-for="(product, index) in products"
         :key="index"
         class="icon"
-        :class="{ selected: selectedProduct === product.name }"
+        :class="{
+          selected: selectedProduct === product.name,
+          disabled: imagePreviewLoading,
+        }"
         @click="
           selectedProduct !== product.name && setSelectedProduct(product.name)
         "
+        :disabled="imagePreviewLoading"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +176,7 @@ onMounted(() => {
           <path :d="product.path"></path>
         </svg>
         <span>{{ product.name === Product.SHIRT ? 'Majica' : 'Šolja' }}</span>
-      </div>
+      </button>
     </div>
 
     <span v-if="productPreviewErrorMessage" class="product-preview-error">{{
@@ -180,38 +188,50 @@ onMounted(() => {
     </div>
 
     <div class="color-picker">
-      <div
+      <button
         v-for="color in Object.values(ProductColor)"
         :key="color"
         class="color-circle"
+        :disabled="imagePreviewLoading"
         :style="{ backgroundColor: color }"
-        :class="{ active: selectedColor === color }"
+        :class="{
+          active: selectedColor === color,
+          disabled: imagePreviewLoading,
+        }"
         @click="selectedColor !== color && setSelectedProductColor(color)"
-      ></div>
+      ></button>
     </div>
 
     <div class="size-picker" v-if="selectedProduct === Product.SHIRT">
-      <div
+      <button
         v-for="size in Object.values(ProductSize)"
         :key="size"
         class="size-value"
-        :class="{ active: selectedSize === size }"
+        :disabled="imagePreviewLoading"
+        :class="{
+          active: selectedSize === size,
+          disabled: imagePreviewLoading,
+        }"
         @click="selectedSize = size"
       >
         {{ size }}
-      </div>
+      </button>
     </div>
 
     <div class="print-side-picker" v-if="selectedProduct === Product.SHIRT">
-      <div
+      <button
         v-for="side in Object.values(ProductPrintSide)"
         :key="side"
         class="print-side-value"
-        :class="{ active: selectedPrintSide === side }"
+        :class="{
+          active: selectedPrintSide === side,
+          disabled: imagePreviewLoading,
+        }"
+        :disabled="imagePreviewLoading"
         @click="selectedPrintSide !== side && setSelectedPrintSide(side)"
       >
         {{ side }}
-      </div>
+      </button>
     </div>
 
     <button
@@ -267,26 +287,33 @@ onMounted(() => {
   margin: 0.1rem;
 }
 
-.icons {
+.button-icons {
   display: flex;
 
   .icon {
     cursor: pointer;
     display: flex;
-    text-align: center;
+    align-items: center;
     flex-direction: column;
     border-radius: 1.2rem;
     padding: 0.6rem 1.5rem 0.6rem 1.5rem;
     margin: 0.5rem;
     border: 1px solid transparent;
+    color: white;
+    background-color: transparent;
 
-    &:hover {
+    &:not(.disabled):hover {
       border: 1px solid white;
     }
 
     &.selected {
       border: 1px solid white;
       cursor: default;
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
 
     span {
@@ -296,8 +323,7 @@ onMounted(() => {
 }
 
 .product-preview {
-  height: 45%;
-  width: 30%;
+  width: 32%;
 
   &-error {
     color: tomato;
@@ -313,8 +339,8 @@ onMounted(() => {
 
   .loader {
     position: absolute;
-    top: 47%;
-    left: 48.5%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 2rem;
     height: 2rem;
@@ -347,9 +373,18 @@ onMounted(() => {
     cursor: pointer;
     border: 2px solid transparent;
 
+    &:not(.disabled):hover {
+      opacity: 0.6;
+    }
+
     &.active {
       border-color: #42879c;
       cursor: default;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 }
@@ -360,19 +395,28 @@ onMounted(() => {
   display: flex;
 
   .size-value {
+    font-size: 1rem;
     font-weight: bold;
     margin: 0.2rem 2rem 0.2rem 2rem;
     padding: 0.3rem 1rem 0.3rem 1rem;
     border-radius: 1.5rem;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: white;
 
     &.active {
       background-color: #42879c;
     }
 
-    &:not(.active):hover {
+    &:not(.active):not(.disabled):hover {
       transition: 0.3s ease;
       background-color: rgba(94, 148, 165, 0.322);
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 }
@@ -381,41 +425,84 @@ onMounted(() => {
   display: flex;
 
   .print-side-value {
+    font-size: 1rem;
     margin: 1rem;
     padding: 0.3rem 1rem;
     border-radius: 1.5rem;
     cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: white;
 
     &.active {
       background-color: #42879c;
     }
 
-    &:not(.active):hover {
+    &:not(.active):not(.disabled):hover {
       transition: 0.3s ease;
       background-color: rgba(94, 148, 165, 0.322);
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 }
 
 .price-preview-button {
+  margin-bottom: 2rem;
   font-weight: bold;
   color: rgb(0, 0, 0);
   padding: 0.6rem 1.2rem;
-  margin-left: 1rem;
   font-size: 1rem;
-  background-color: #c07c2f;
+  background-color: #ffffff;
   border: none;
   cursor: pointer;
   border-radius: 0.5rem;
+  color: black;
 
   &:not(.disabled):hover {
     transition: 0.3s ease;
-    background-color: #8a6031;
+    background-color: #d1d1d1;
   }
 
   &.disabled {
-    opacity: 0.2;
     cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .tweet-input {
+    margin-top: 1.5rem;
+    flex-direction: column;
+    align-items: center;
+
+    .tweet-url-input {
+      width: 85%;
+    }
+
+    .tweet-url-submit {
+      margin: 0.5rem 0rem;
+    }
+  }
+  .product-preview {
+    width: 95%;
+  }
+
+  .size-picker {
+    .size-value {
+      margin: 0.2rem 0.8rem;
+    }
+  }
+
+  .print-side-picker {
+    display: flex;
+
+    .print-side-value {
+      padding: 0.4rem 1.5rem;
+    }
   }
 }
 </style>
