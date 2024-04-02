@@ -2,7 +2,11 @@ import { defineStore } from 'pinia';
 import { ICartItem } from '../interface';
 
 export const useStore = defineStore('store', {
-  state: () => ({ currentTweetUrl: '', cartItems: [] as ICartItem[] }),
+  state: () => ({
+    currentTweetUrl: '',
+    cartItems: [] as ICartItem[],
+    notification: { text: '', type: '' },
+  }),
 
   getters: {
     getCurrentTweetUrl: (state) => state.currentTweetUrl,

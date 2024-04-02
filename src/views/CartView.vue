@@ -30,6 +30,12 @@ const checkoutOrder = async () => {
     return;
   }
 
+  if (!/^\+?\d+(\s\d+)*$/.test(mobileNumber.value)) {
+    inputErrorMessage.value = 'Mobitel mora sadržavati samo brojeve 😐';
+
+    return;
+  }
+
   inputErrorMessage.value = '';
 
   const orderPayload: IOrderPayload = {
@@ -40,14 +46,23 @@ const checkoutOrder = async () => {
     address: address.value,
     shipping: shipping.value,
     items: cartItems.value.map((item) => {
-      const { image, ...itemWithoutImage } = item;
-      return itemWithoutImage;
+      const { image, price, ...cleanItem } = item;
+      return cleanItem;
     }),
   };
 
-  const { sucess, error } = await createOrder(orderPayload);
+  const { success, error } = await createOrder(orderPayload);
 
-  console.log('handle sucess ili error', sucess, error);
+  if (error) {
+    store.notification.text = error;
+    store.notification.type = 'error';
+  }
+
+  if (success) {
+    store.notification.text = success;
+    store.notification.type = 'success';
+    removeAllItemsFromCart();
+  }
 };
 
 const calculateTotalPrice = () => {
@@ -76,6 +91,13 @@ const removeItemFromCart = (item: ICartItem) => {
       router.push({ name: 'home' });
     }
   }
+};
+
+const removeAllItemsFromCart = () => {
+  localStorage.removeItem('cartItems');
+  store.cartItems = [];
+
+  router.push({ name: 'home' });
 };
 
 const formatColorName = (color: ProductColor) => {

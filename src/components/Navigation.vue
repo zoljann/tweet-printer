@@ -1,28 +1,43 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '../store';
 
 const router = useRouter();
+const route = useRoute();
 const store = useStore();
 </script>
 
 <template>
   <div class="navigation">
-    <img
-      class="logo"
-      src="../assets/favicon.png"
-      @click="router.push({ name: 'home' })"
-    />
-    <a href="https://www.instagram.com/isprintajsvojtvit" target="_blank"
-      >@isprintajsvojtvit🥳</a
-    >
+    <div class="left-side">
+      <img
+        class="logo"
+        src="../assets/favicon.png"
+        @click="router.push({ name: 'home' })"
+      />
+      <span
+        class="item"
+        v-if="route.name !== 'home'"
+        @click="router.push({ name: 'home' })"
+        >Početna</span
+      >
+      <span class="item" @click="router.push({ name: 'questions' })"
+        >Česta pitanja🤔</span
+      >
+      <a
+        class="item"
+        href="https://www.instagram.com/isprintajsvojtvit"
+        target="_blank"
+        >Naš instagram🥳</a
+      >
+    </div>
     <div class="right-side">
-      <span @click="router.push({ name: 'questions' })">Česta pitanja🤔</span>
       <span
         class="cart-icon"
         v-if="store.getCartItems.length"
         @click="router.push({ name: 'cart' })"
       >
+        Korpa
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -51,28 +66,40 @@ const store = useStore();
   display: flex;
   align-items: center;
   padding-top: 1rem;
-  padding-left: 1rem;
+  padding-left: 2rem;
 
   .logo {
     height: 3.75rem;
     cursor: pointer;
   }
 
-  a {
-    text-decoration: none;
-    color: white;
+  .left-side {
+    display: flex;
+    align-items: center;
 
-    &:hover {
-      transition: 0.3s ease;
-      color: #4990a5;
+    .item {
+      cursor: pointer;
+      padding: 0 1rem;
+      text-decoration: none;
+      color: white;
+
+      &:hover {
+        transition: 0.3s ease;
+        color: #4990a5;
+      }
     }
   }
 
   .right-side {
     display: flex;
     align-items: center;
+    position: absolute;
+    right: 0;
+    padding-right: 2rem;
 
     span {
+      display: flex;
+      align-items: center;
       cursor: pointer;
 
       &:hover {
@@ -85,27 +112,12 @@ const store = useStore();
 
 @media only screen and (max-width: 768px) {
   .navigation {
-    font-size: 0.9rem;
-    padding-right: 1rem;
-
-    .right-side {
-      width: 45%;
+    .left-side {
+      display: none;
     }
-  }
-}
-
-@media only screen and (max-width: 380px) {
-  .navigation {
-    font-size: 0.8rem;
-  }
-}
-
-@media only screen and (max-width: 350px) {
-  .navigation {
-    font-size: 0.7rem;
 
     .right-side {
-      width: 40%;
+      padding: 2rem 1rem 0rem 0rem;
     }
   }
 }
