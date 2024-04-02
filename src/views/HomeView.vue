@@ -135,7 +135,8 @@ const setErrorMessage = (message: string) => {
 
 @media only screen and (max-width: 768px) {
   .tweet-section {
-    margin-top: 10%;
+    height: auto;
+    margin-bottom: 1rem;
     flex-direction: column;
     text-align: center;
 
