@@ -260,7 +260,7 @@ onMounted(() => {
 
   .tweet-url-input {
     width: 25%;
-    padding: 0.8rem;
+    padding: 0.6rem;
     border-radius: 0.5rem;
   }
 
@@ -480,10 +480,11 @@ onMounted(() => {
     align-items: center;
 
     .tweet-url-input {
-      width: 85%;
+      width: 95%;
     }
 
     .tweet-url-submit {
+      width: 65%;
       margin: 0.5rem 0rem;
     }
   }

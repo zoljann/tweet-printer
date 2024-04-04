@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from '../store';
 import { ref, onMounted } from 'vue';
+import { useStore } from '../store';
 
 const router = useRouter();
 const route = useRoute();
 const store = useStore();
 
+const cartItems = ref(store.getCartItems);
 const isMenuVisible = ref(false);
 const menuRef = ref<HTMLElement | null>(null);
 
@@ -17,6 +18,20 @@ const toggleMenu = () => {
 const handleMobileMenuclick = (route: string) => {
   router.push({ name: route });
   isMenuVisible.value = false;
+};
+
+const handleCartClick = () => {
+  if (!cartItems.value.length) {
+    store.notification.text = 'Trenutno nemaš ništa u korpi';
+    store.notification.type = 'info';
+
+    setTimeout(() => {
+      store.notification.text = '';
+      store.notification.type = '';
+    }, 2500);
+  } else {
+    router.push({ name: 'cart' });
+  }
 };
 
 const handleClickOutside = (event: MouseEvent) => {
@@ -76,11 +91,7 @@ onMounted(() => {
       </span>
     </div>
     <div class="right-side">
-      <span
-        class="cart-icon"
-        v-if="store.getCartItems.length"
-        @click="router.push({ name: 'cart' })"
-      >
+      <span class="cart-icon" @click="handleCartClick">
         Korpa
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -192,11 +203,17 @@ onMounted(() => {
 
 @media only screen and (max-width: 768px) {
   .navigation {
+    padding: 1rem 1rem 0 1rem;
+
     .left-side {
       .logo,
       .item {
         display: none;
       }
+    }
+
+    .right-side {
+      padding-right: 1rem;
     }
   }
 

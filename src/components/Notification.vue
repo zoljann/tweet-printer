@@ -17,6 +17,7 @@ const closeNotification = () => {
     :class="{
       success: notification.type === 'success',
       error: notification.type === 'error',
+      info: notification.type === 'info',
     }"
     v-if="notification.text"
   >
@@ -24,7 +25,7 @@ const closeNotification = () => {
       <p>
         {{ notification.text }}
       </p>
-      <button @click="closeNotification">
+      <button class="close-button" @click="closeNotification">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -72,6 +73,10 @@ const closeNotification = () => {
   background-color: tomato;
 }
 
+.info {
+  background-color: rgb(192, 167, 53);
+}
+
 .content {
   color: white;
 
@@ -80,15 +85,14 @@ const closeNotification = () => {
   }
 }
 
-.notification button {
-  border-radius: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.308);
+.close-button {
   color: white;
   position: absolute;
   right: 0;
   top: 0;
   border: none;
   cursor: pointer;
+  background-color: transparent;
 }
 
 @media only screen and (max-width: 768px) {

@@ -12,10 +12,4 @@ export const useStore = defineStore('store', {
     getCurrentTweetUrl: (state) => state.currentTweetUrl,
     getCartItems: (state) => state.cartItems,
   },
-
-  actions: {
-    test() {
-      console.log('test');
-    },
-  },
 });
