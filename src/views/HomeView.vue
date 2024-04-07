@@ -154,6 +154,7 @@ const setErrorMessage = (message: string) => {
       p {
         width: 90%;
         font-size: 0.8rem;
+        margin: 1.1rem 0;
       }
 
       button {
@@ -161,6 +162,7 @@ const setErrorMessage = (message: string) => {
       }
 
       input {
+        margin-top: 1rem;
         width: 90%;
       }
     }
