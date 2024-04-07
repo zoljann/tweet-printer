@@ -281,7 +281,7 @@ onMounted(() => {
     font-weight: bold;
     font-size: 1.2em;
     margin-top: auto;
-    color: rgb(34, 145, 130);
+    color: #4c808f;
   }
 }
 
@@ -317,7 +317,7 @@ onMounted(() => {
     margin: 1.5rem 0;
     width: 50%;
     padding: 0.8rem 3rem;
-    background-color: rgb(34, 145, 130);
+    background-color: var(--button-color-back);
     border: none;
     cursor: pointer;
     border-radius: 0.5rem;
@@ -326,7 +326,7 @@ onMounted(() => {
 
     &:hover {
       transition: 0.3s ease;
-      background-color: #3a75868c;
+      background-color: var(--button-color-hover);
     }
   }
 
@@ -336,7 +336,7 @@ onMounted(() => {
 
     &-value {
       font-size: 1.2rem;
-      color: rgb(34, 145, 130);
+      color: tomato;
     }
   }
 }
