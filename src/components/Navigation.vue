@@ -88,6 +88,12 @@ onMounted(() => {
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </span>
+      <img
+        class="logo-mob"
+        src="../assets/favicon.png"
+        @click="router.push({ name: 'home' })"
+      />
+      <span></span>
     </div>
     <div class="right-side">
       <span class="cart-icon" @click="handleCartClick">
@@ -170,6 +176,11 @@ onMounted(() => {
         color: var(--text-color-hover);
       }
     }
+
+    .logo-mob {
+      display: none;
+      margin-right: 3rem;
+    }
   }
 
   .right-side {
@@ -208,6 +219,16 @@ onMounted(() => {
       .logo,
       .item {
         display: none;
+      }
+    }
+
+    .left-side {
+      width: 100%;
+      justify-content: space-between;
+
+      .logo-mob {
+        display: block;
+        width: 50px;
       }
     }
 

@@ -252,6 +252,7 @@ onMounted(() => {
       border: none;
       cursor: pointer;
       border-radius: 0.5rem;
+      color: var(--button-color-hover);
 
       &:hover {
         transition: 0.3s ease;
