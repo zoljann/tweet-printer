@@ -255,7 +255,7 @@ onMounted(() => {
 
       &:hover {
         transition: 0.3s ease;
-        background-color: #3a75868c;
+        background-color: var(--button-color-hover);
       }
     }
   }
@@ -296,7 +296,7 @@ onMounted(() => {
   .input-error {
     margin: 1rem 0;
     display: block;
-    color: tomato;
+    color: var(--text-color-error);
   }
 
   .form-group label {
@@ -310,6 +310,7 @@ onMounted(() => {
     padding: 0.5rem;
     border: none;
     border-radius: 0.2rem;
+    background-color: var(--input-color-back);
   }
 
   .checkout-button {

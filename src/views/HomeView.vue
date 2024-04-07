@@ -88,28 +88,29 @@ const setErrorMessage = (message: string) => {
       padding: 0.6rem;
       border-radius: 0.6rem;
       width: 75%;
+      background-color: var(--input-color-back);
     }
 
     .input-error {
-      color: tomato;
+      color: var(--text-color-error);
       margin: 0.1rem;
     }
 
     button {
       font-weight: bold;
-      color: rgb(233, 233, 233);
+      color: var(--button-color);
       width: 50%;
       padding: 0.6rem 1.2rem;
       margin-top: 1rem;
       font-size: 1rem;
-      background-color: #42879c;
+      background-color: var(--button-color-back);
       border: none;
       cursor: pointer;
       border-radius: 0.6rem;
 
       &:hover {
         transition: 0.3s ease;
-        background-color: #3a7586;
+        background-color: var(--button-color-hover);
       }
     }
 
@@ -118,7 +119,7 @@ const setErrorMessage = (message: string) => {
     }
 
     .important-text {
-      color: tomato;
+      color: var(--text-color-error);
     }
   }
 }

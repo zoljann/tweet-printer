@@ -1,0 +1,29 @@
+:root {
+  --primary-color: hsl(211, 100%, 50%);
+  --secondary-color: #6c757d;
+  --text-color: rgb(245, 248, 49);
+  --text-color-error: tomato;
+  --text-color-hover: teal;
+  --input-color-back: rgb(168, 168, 168);
+  --button-color-back: red;
+  --button-color-hover: brown;
+  --button-color: green;
+
+  font-family: Trebuchet MS, sans-serif;
+
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+body {
+  margin: 0;
+}
+
+body,
+html,
+button,
+input,
+span,
+p {
+  font-family: Trebuchet MS, sans-serif;
+}

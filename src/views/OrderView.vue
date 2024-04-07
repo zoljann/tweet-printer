@@ -266,24 +266,24 @@ onMounted(() => {
 
   .tweet-url-submit {
     font-weight: bold;
-    color: rgb(233, 233, 233);
+    color: var(--button-color);
     padding: 0.6rem 1.2rem;
     margin-left: 1rem;
     font-size: 1rem;
-    background-color: #42879c;
+    background-color: var(--button-color-back);
     border: none;
     cursor: pointer;
     border-radius: 0.5rem;
 
     &:hover {
       transition: 0.3s ease;
-      background-color: #3a7586;
+      background-color: var(--button-color-hover);
     }
   }
 }
 
 .input-error {
-  color: tomato;
+  color: var(--text-color-error);
   margin: 0.1rem;
 }
 
@@ -326,7 +326,7 @@ onMounted(() => {
   width: 32%;
 
   &-error {
-    color: tomato;
+    color: var(--text-color-error);
   }
 
   &.fade {
@@ -432,15 +432,15 @@ onMounted(() => {
     cursor: pointer;
     border: none;
     background-color: transparent;
-    color: white;
+    color: var(--button-color);
 
     &.active {
-      background-color: #42879c;
+      background-color: var(--button-color-back);
     }
 
     &:not(.active):not(.disabled):hover {
       transition: 0.3s ease;
-      background-color: rgba(94, 148, 165, 0.322);
+      background-color: var(--button-color-hover);
     }
 
     &.disabled {
@@ -453,7 +453,6 @@ onMounted(() => {
 .price-preview-button {
   margin-bottom: 2rem;
   font-weight: bold;
-  color: rgb(0, 0, 0);
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   background-color: #ffffff;

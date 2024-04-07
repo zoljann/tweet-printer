@@ -38,7 +38,7 @@
 
   p {
     font-size: 0.8rem;
-    color: rgb(206, 206, 206);
+    color: var(--text-color);
   }
 }
 

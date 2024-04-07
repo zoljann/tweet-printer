@@ -78,7 +78,7 @@ const closeNotification = () => {
 }
 
 .content {
-  color: white;
+  color: var(--text-color);
 
   p {
     margin: 0;

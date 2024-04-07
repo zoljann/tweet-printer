@@ -7,7 +7,6 @@ const router = useRouter();
 const route = useRoute();
 const store = useStore();
 
-const cartItems = ref(store.getCartItems);
 const isMenuVisible = ref(false);
 const menuRef = ref<HTMLElement | null>(null);
 
@@ -21,7 +20,7 @@ const handleMobileMenuclick = (route: string) => {
 };
 
 const handleCartClick = () => {
-  if (!cartItems.value.length) {
+  if (!store.getCartItems.length) {
     store.notification.text = 'Trenutno nemaš ništa u korpi';
     store.notification.type = 'info';
 
@@ -164,11 +163,11 @@ onMounted(() => {
       cursor: pointer;
       padding: 0 1rem;
       text-decoration: none;
-      color: white;
+      color: var(--text-color);
 
       &:hover {
         transition: 0.3s ease;
-        color: #4990a5;
+        color: var(--text-color-hover);
       }
     }
   }
@@ -187,7 +186,7 @@ onMounted(() => {
 
       &:hover {
         transition: 0.3s ease;
-        color: #4990a5;
+        color: var(--text-color-hover);
       }
     }
   }
@@ -241,7 +240,7 @@ onMounted(() => {
       background-color: rgba(117, 117, 117, 0.493);
       padding: 1rem;
       text-decoration: none;
-      color: white;
+      color: var(--text-color);
     }
 
     .activeroute {
