@@ -4,7 +4,7 @@
       >👕 Premium kvalitet majica
       <p>
         Izuzetno kvalitetne majice, izrađene od pamuka visoke gustoće, pružajući
-        udobnost i dugotrajnost. Izdržljivi savovi na rukavima garantuju
+        udobnost i dugotrajnost. Izdržljivi šavovi na rukavima garantuju
         trajnost i besprijekornost čak i nakon višestrukih pranja i nošenja
       </p></span
     >
@@ -21,7 +21,7 @@
       <p>
         Plaćanje se vrši pouzećem kuriru
         <span class="important">(trenutno)</span>, a plaćanje visa/mastercard
-        karticama <span class="important">USKORO💳</span>
+        karticama <span class="important">(uskoro💳)</span>
       </p>
     </span>
   </div>

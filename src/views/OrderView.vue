@@ -465,7 +465,7 @@ onMounted(() => {
 
   &:not(.disabled):hover {
     transition: 0.3s ease;
-    background-color: #d1d1d1;
+    background-color: rgb(214, 82, 59);
   }
 
   &.disabled {

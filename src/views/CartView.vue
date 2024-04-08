@@ -30,8 +30,8 @@ const checkoutOrder = async () => {
     return;
   }
 
-  if (!/^\+?\d+(\s\d+)*$/.test(mobileNumber.value)) {
-    inputErrorMessage.value = 'Mobitel smije sadržavati samo brojeve 😐';
+  if (!/^\+?(?:\d\s?){9,}$/.test(mobileNumber.value)) {
+    inputErrorMessage.value = 'Mobitel se sastoji od najmanje 9 brojeva 😐';
 
     return;
   }

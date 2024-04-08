@@ -3,7 +3,7 @@
     <div class="content">
       <h3>Kakvog su kvaliteta majice i šoljice?👕🤞</h3>
       <p>
-        Naša kolekcija majica odlikuje se vrhunskim kvalitetom, koristeći
+        Naša kolekcija majica odlikuje se vrhunskom kvalitetom, koristeći
         <span class="important">pažljivo odabrani pamuk</span> i posebnu pažnju
         pri šivanju kako bi se osigurala dugotrajnost i udobnost. Također, naše
         šoljice su izrađene od
@@ -15,7 +15,7 @@
       <h3>Kako funkcioniše dostava i plaćanje?🚚💳</h3>
       <p>
         Prilikom naručivanja narudžbe imamo dvije opcije dostave; plaćanje
-        pouzećem i plaćanje karticama <span class="important">(USKORO)</span>.
+        pouzećem i plaćanje karticama <span class="important">(uskoro)</span>.
         Narudžba je na vašoj adresi kroz 5-7 radnih dana. Povrate novca ukoliko
         niste zadovoljni vršimo kroz 24h.
       </p>
@@ -27,7 +27,7 @@
         na
         <a href="https://www.instagram.com/isprintajsvojtvit" target="_blank"
           >@isprintajsvojtvit🥳</a
-        >
+        >.
       </p>
     </div>
   </div>
@@ -35,6 +35,7 @@
 
 <style scoped lang="scss">
 .questions {
+  cursor: default;
   height: 83%;
   display: flex;
   flex-direction: column;
