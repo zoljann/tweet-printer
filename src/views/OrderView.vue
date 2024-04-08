@@ -55,6 +55,7 @@ const updateTweetUrl = () => {
 
 const getProductPreview = async () => {
   imagePreviewLoading.value = true;
+  productPreviewErrorMessage.value = '';
 
   const imagePreviewPayload = {
     product: selectedProduct.value,
@@ -70,12 +71,8 @@ const getProductPreview = async () => {
   );
 
   if (error) {
-    productPreviewErrorMessage.value = error;
+    productPreviewErrorMessage.value = 'Došlo je do greške! Osvježi stranicu.';
     imagePreviewLoading.value = false;
-
-    setTimeout(() => {
-      productPreviewErrorMessage.value = '';
-    }, 2500);
 
     return;
   }
