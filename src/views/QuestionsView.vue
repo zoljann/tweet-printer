@@ -62,7 +62,6 @@
 @media only screen and (max-width: 768px) {
   .questions {
     justify-content: start;
-    margin-top: 20%;
   }
 
   .content {
