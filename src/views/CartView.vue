@@ -31,7 +31,7 @@ const checkoutOrder = async () => {
   }
 
   if (!/^\+?\d+(\s\d+)*$/.test(mobileNumber.value)) {
-    inputErrorMessage.value = 'Mobitel mora sadržavati samo brojeve 😐';
+    inputErrorMessage.value = 'Mobitel smije sadržavati samo brojeve 😐';
 
     return;
   }
@@ -213,11 +213,11 @@ onMounted(() => {
           />
           <span for="bih">Plaćanje pouzećem</span>
         </div>
-        <span class="input-error">{{ inputErrorMessage }}</span>
         <div class="total-price">
           Ukupno:
           <span class="total-price-value"> {{ calculateTotalPrice() }}KM</span>
         </div>
+        <span class="input-error">{{ inputErrorMessage }}</span>
       </form>
       <button class="checkout-button" @click="checkoutOrder">Naruči</button>
     </div>
@@ -256,7 +256,7 @@ onMounted(() => {
 
       &:hover {
         transition: 0.3s ease;
-        background-color: var(--button-color-hover);
+        background-color: #777777;
       }
     }
   }
@@ -267,6 +267,7 @@ onMounted(() => {
   }
 
   .details-and-price {
+    width: 8rem;
     display: flex;
     flex-direction: column;
     margin: 1rem;
@@ -295,7 +296,7 @@ onMounted(() => {
   }
 
   .input-error {
-    margin: 1rem 0;
+    margin-top: 1rem;
     display: block;
     color: var(--text-color-error);
   }
@@ -318,7 +319,7 @@ onMounted(() => {
     margin: 1.5rem 0;
     width: 50%;
     padding: 0.8rem 3rem;
-    background-color: var(--button-color-back);
+    background-color: tomato;
     border: none;
     cursor: pointer;
     border-radius: 0.5rem;
@@ -327,7 +328,7 @@ onMounted(() => {
 
     &:hover {
       transition: 0.3s ease;
-      background-color: var(--button-color-hover);
+      background-color: rgb(219, 85, 61);
     }
   }
 
@@ -336,7 +337,7 @@ onMounted(() => {
     text-decoration: underline;
 
     &-value {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       color: tomato;
     }
   }
@@ -379,13 +380,32 @@ onMounted(() => {
       text-align: center;
     }
 
-    .form-group input,
-    .form-group select {
+    .form-group input {
       width: 90%;
+    }
+
+    .form-group select {
+      width: 95%;
     }
 
     .checkout-button {
       width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .cart {
+    .details-and-price {
+      width: 6rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .cart {
+    .details-and-price {
+      width: 4rem;
     }
   }
 }

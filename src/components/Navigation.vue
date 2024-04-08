@@ -55,20 +55,15 @@ onMounted(() => {
         src="../assets/favicon.png"
         @click="router.push({ name: 'home' })"
       />
-      <span
-        class="item"
-        v-if="route.name !== 'home'"
-        @click="router.push({ name: 'home' })"
-        >Početna</span
-      >
+      <span class="item" @click="router.push({ name: 'home' })">Početna</span>
       <span class="item" @click="router.push({ name: 'questions' })"
-        >Česta pitanja🤔</span
+        >Česta pitanja</span
       >
       <a
         class="item"
         href="https://www.instagram.com/isprintajsvojtvit"
         target="_blank"
-        >Naš instagram🥳</a
+        >Instagram</a
       >
       <span class="toggle-menu" @click="toggleMenu" @click.stop>
         <svg
@@ -127,23 +122,30 @@ onMounted(() => {
     @click.stop
   >
     <div class="menu-items">
+      <div class="menu-logo-wrapper">
+        <img
+          class="menu-logo"
+          src="../assets/favicon.png"
+          @click="router.push({ name: 'home' })"
+        />
+      </div>
       <span
         class="item"
-        v-if="route.name !== 'home'"
         @click="handleMobileMenuclick('home')"
-        >Početna</span
+        :class="{ activeroute: route.name === 'home' }"
+        >🏠 Početna</span
       >
       <span
         class="item"
         @click="handleMobileMenuclick('questions')"
         :class="{ activeroute: route.name === 'questions' }"
-        >Česta pitanja🤔</span
+        >❓ Česta pitanja</span
       >
       <a
         class="item"
         href="https://www.instagram.com/isprintajsvojtvit"
         target="_blank"
-        >Naš instagram🥳</a
+        >📷 Instagram</a
       >
     </div>
   </div>
@@ -172,8 +174,9 @@ onMounted(() => {
       color: var(--text-color);
 
       &:hover {
-        transition: 0.3s ease;
+        transition: 0.2s ease;
         color: var(--text-color-hover);
+        text-decoration: underline;
       }
     }
 
@@ -196,8 +199,9 @@ onMounted(() => {
       cursor: pointer;
 
       &:hover {
-        transition: 0.3s ease;
+        transition: 0.2s ease;
         color: var(--text-color-hover);
+        text-decoration: underline;
       }
     }
   }
@@ -242,13 +246,14 @@ onMounted(() => {
   }
 
   .left-side-menu {
+    z-index: 99;
     display: block;
     position: fixed;
-    left: -70%;
+    left: -65%;
     top: 0;
     height: 100%;
-    width: 70%;
-    background-color: rgba(41, 41, 41, 0.973);
+    width: 65%;
+    background-color: rgba(41, 41, 41, 0.99);
     transition: left 0.3s ease;
 
     .menu-items {
@@ -256,16 +261,26 @@ onMounted(() => {
       flex-direction: column;
     }
 
+    .menu-logo-wrapper {
+      margin: 1rem 0;
+      text-align: center;
+      width: 100%;
+
+      .menu-logo {
+        width: 6rem;
+      }
+    }
+
     .item {
       margin-bottom: 0.5rem;
-      background-color: rgba(117, 117, 117, 0.493);
       padding: 1rem;
       text-decoration: none;
       color: var(--text-color);
     }
 
     .activeroute {
-      background-color: rgb(117, 117, 117);
+      font-weight: bold;
+      color: var(--text-color-hover);
     }
   }
 

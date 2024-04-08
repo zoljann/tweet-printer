@@ -19,7 +19,7 @@ const store = useStore();
 const tweetUrl = ref(store.getCurrentTweetUrl);
 const tweetUrlInput = ref('');
 const tweetUrlErrorMessage = ref('');
-const imagePreviewUrl = ref('');
+const imagePreviewUrl = ref('https://i.imgur.com/YDzuLdB.jpg');
 const imagePreviewLoading = ref(false);
 const productPreviewErrorMessage = ref('');
 const productPricePreview = ref(0);
@@ -240,7 +240,7 @@ onMounted(() => {
       :disabled="imagePreviewLoading"
       @click="redirectToCartView"
     >
-      {{ productPricePreview }} KM | Kupi
+      {{ productPricePreview }} KM | Dodaj u korpu
     </button>
   </div>
 </template>
@@ -323,6 +323,7 @@ onMounted(() => {
 }
 
 .product-preview {
+  position: relative;
   width: 32%;
 
   &-error {
@@ -339,8 +340,8 @@ onMounted(() => {
 
   .loader {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 40%;
+    left: 45%;
     transform: translate(-50%, -50%);
     width: 2rem;
     height: 2rem;
@@ -452,14 +453,15 @@ onMounted(() => {
 
 .price-preview-button {
   margin-bottom: 2rem;
+  margin-top: 1rem;
   font-weight: bold;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
-  background-color: #ffffff;
+  background-color: tomato;
   border: none;
   cursor: pointer;
   border-radius: 0.5rem;
-  color: black;
+  color: var(--button-color);
 
   &:not(.disabled):hover {
     transition: 0.3s ease;
@@ -502,6 +504,14 @@ onMounted(() => {
 
     .print-side-value {
       padding: 0.4rem 1.5rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .size-picker {
+    .size-value {
+      margin: 0.2rem 0.4rem;
     }
   }
 }

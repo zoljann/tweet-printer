@@ -3,20 +3,26 @@
     <span
       >👕 Premium kvalitet majica
       <p>
-        6.0 oz., 100% skupljeni pamuk u obliku prstena; idržljivi dvostruki
-        šavovi na rukavima i donjem rubu; bez trganja
+        Izuzetno kvalitetne majice, izrađene od pamuka visoke gustoće, pružajući
+        udobnost i dugotrajnost. Izdržljivi savovi na rukavima garantuju
+        trajnost i besprijekornost čak i nakon višestrukih pranja i nošenja
       </p></span
     >
     <span
       >🚚 Besplatna dostava
       <p>
-        Dostava na području Bosne i Hercegovine, od datuma narudžbe kroz 5-7
-        radnih dana je narudžba na vašoj adresi
+        Dostava na području Bosne i Hercegovine
+        <span class="important">(trenutno)</span>, narudžba je na vašoj adresi
+        kroz 5-7 radnih dana
       </p></span
     >
     <span
       >💰 Više načina plaćanja
-      <p>Plaćanje pouzećem kuriru ili plaćanje VISA/MASTERCARD karticama 💳</p>
+      <p>
+        Plaćanje se vrši pouzećem kuriru
+        <span class="important">(trenutno)</span>, a plaćanje visa/mastercard
+        karticama <span class="important">USKORO💳</span>
+      </p>
     </span>
   </div>
 </template>
@@ -39,6 +45,11 @@
   p {
     font-size: 0.8rem;
     color: var(--text-color);
+  }
+
+  .important {
+    color: var(--text-color-error);
+    display: inline;
   }
 }
 
