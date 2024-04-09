@@ -21,6 +21,7 @@ export interface IOrderPayload {
   state: string;
   city: string;
   address: string;
+  email: string;
   shipping: string;
   items: any[];
 }

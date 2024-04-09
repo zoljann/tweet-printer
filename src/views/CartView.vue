@@ -9,15 +9,17 @@ const router = useRouter();
 const store = useStore();
 const cartItems = ref(store.getCartItems);
 const inputErrorMessage = ref('');
+const showConfirmationModal = ref(false);
 
 const name = ref('');
 const mobileNumber = ref('');
 const state = ref('BiH');
 const city = ref('');
 const address = ref('');
+const email = ref('');
 const shipping = ref('pickup');
 
-const checkoutOrder = async () => {
+const checkIsValidOrder = async () => {
   if (
     !name.value.trim() ||
     !mobileNumber.value.trim() ||
@@ -25,7 +27,13 @@ const checkoutOrder = async () => {
     !city.value.trim() ||
     !address.value.trim()
   ) {
-    inputErrorMessage.value = 'Sva polja su obavezna 😐';
+    inputErrorMessage.value = 'Nisi ispunio obavezna polja 😐';
+
+    return;
+  }
+
+  if (!/^[a-zA-Z ]{6,}$/.test(name.value)) {
+    inputErrorMessage.value = 'Ime i prezime se sastoji od najmanje 6 slova 😐';
 
     return;
   }
@@ -36,14 +44,39 @@ const checkoutOrder = async () => {
     return;
   }
 
-  inputErrorMessage.value = '';
+  if (!/^[a-zA-Z ]{3,}$/.test(city.value)) {
+    inputErrorMessage.value = 'Grad se sastoji od najmanje 3 slova 😐';
 
+    return;
+  }
+
+  if (!/^[a-zA-Z0-9 ]{3,}$/.test(address.value)) {
+    inputErrorMessage.value = 'Adresa se sastoji od najmanje 3 karaktera 😐';
+
+    return;
+  }
+
+  if (
+    email.value &&
+    !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email.value)
+  ) {
+    inputErrorMessage.value = 'Neispravan e-mail 😐';
+
+    return;
+  }
+
+  inputErrorMessage.value = '';
+  showConfirmationModal.value = true;
+};
+
+const confirmOrder = async () => {
   const orderPayload: IOrderPayload = {
     name: name.value,
     mobileNumber: mobileNumber.value,
     state: state.value,
     city: city.value,
     address: address.value,
+    email: email.value,
     shipping: shipping.value,
     items: cartItems.value.map((item) => {
       const { image, price, ...cleanItem } = item;
@@ -63,6 +96,10 @@ const checkoutOrder = async () => {
     store.notification.type = 'success';
     removeAllItemsFromCart();
   }
+};
+
+const closeConfirmationModal = () => {
+  showConfirmationModal.value = false;
 };
 
 const calculateTotalPrice = () => {
@@ -203,6 +240,10 @@ onMounted(() => {
           <label>Adresa</label>
           <input type="text" v-model="address" placeholder="Adresa" required />
         </div>
+        <div class="form-group">
+          <label>Email <span class="text-important">*opcionalno</span></label>
+          <input type="text" v-model="email" placeholder="E-mail" />
+        </div>
         <div>
           <input
             type="radio"
@@ -219,7 +260,54 @@ onMounted(() => {
         </div>
         <span class="input-error">{{ inputErrorMessage }}</span>
       </form>
-      <button class="checkout-button" @click="checkoutOrder">Naruči</button>
+      <button class="checkout-button" @click="checkIsValidOrder">Naruči</button>
+    </div>
+  </div>
+
+  <div v-if="showConfirmationModal" class="modal-overlay">
+    <div class="modal-container">
+      <h3>Narudžba</h3>
+      <div class="content">
+        <div v-for="(item, index) in cartItems" :key="index">
+          <span class="number">1x</span> {{ formatProductName(item.product) }} -
+          {{ formatColorName(item.color) }}
+          <span v-if="item.product !== Product.MUG">, vel. {{ item.size }}</span
+          >, <span class="price"> {{ item.price }}KM</span>
+        </div>
+        <div class="total-price">
+          Ukupno: <span class="total"> {{ calculateTotalPrice() }}KM</span>
+        </div>
+      </div>
+      <h3>Primalac</h3>
+      <div>
+        {{ name }}
+      </div>
+      <div>
+        {{ mobileNumber }}
+      </div>
+      <div>{{ city }}, {{ address }}</div>
+      <div>{{ email }}</div>
+
+      <button class="close-button" @click="closeConfirmationModal">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="30"
+          height="30"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-x"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <button class="confirm-button" @click="confirmOrder">
+        Potvrdi narudžbu
+      </button>
     </div>
   </div>
 </template>
@@ -287,6 +375,11 @@ onMounted(() => {
   }
 }
 
+.text-important {
+  color: tomato;
+  font-size: 0.7rem;
+}
+
 .checkout {
   width: 50%;
   margin: 1rem 3rem;
@@ -343,6 +436,82 @@ onMounted(() => {
   }
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container {
+  text-align: center;
+  position: relative;
+  border-radius: 1rem;
+  width: 30%;
+  height: auto;
+  background-color: #dadada;
+  color: rgb(5, 5, 5);
+
+  h3 {
+    padding-top: 1rem;
+    padding-left: 1rem;
+    text-align: left;
+  }
+
+  .content {
+    .total-price {
+      padding-top: 1rem;
+      padding-right: 1rem;
+      text-align: right;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: rgb(255, 81, 50);
+    }
+
+    .price {
+      font-style: italic;
+    }
+
+    .number {
+      font-weight: bold;
+    }
+  }
+}
+
+.close-button {
+  margin: 1rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.confirm-button {
+  width: 50%;
+  padding: 0.8rem 3rem;
+  background-color: tomato;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  color: white;
+  margin: 1rem 0;
+
+  &:hover {
+    transition: 0.3s ease;
+    background-color: rgb(219, 85, 61);
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .wrapper {
     flex-direction: column;
@@ -391,6 +560,14 @@ onMounted(() => {
     .checkout-button {
       width: 100%;
     }
+  }
+
+  .modal-container {
+    width: 90%;
+  }
+
+  .confirm-button {
+    width: 80%;
   }
 }
 
