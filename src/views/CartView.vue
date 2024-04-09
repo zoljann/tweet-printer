@@ -493,6 +493,7 @@ onMounted(() => {
   border: none;
   cursor: pointer;
   background-color: transparent;
+  color: black;
 }
 
 .confirm-button {
@@ -559,6 +560,7 @@ onMounted(() => {
 
     .checkout-button {
       width: 100%;
+      font-size: 1rem;
     }
   }
 
@@ -568,6 +570,7 @@ onMounted(() => {
 
   .confirm-button {
     width: 80%;
+    font-size: 1rem;
   }
 }
 
