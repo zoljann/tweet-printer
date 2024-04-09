@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
 import { isValidUrl } from '../helpers';
@@ -22,6 +22,9 @@ const tweetUrlErrorMessage = ref('');
 const imagePreviewUrl = ref('https://i.imgur.com/YDzuLdB.jpg');
 const imagePreviewLoading = ref(false);
 const productPreviewErrorMessage = ref('');
+const productPreviewErrorMessageBoolean = computed(
+  () => !!productPreviewErrorMessage.value
+);
 const productPricePreview = ref(0);
 const selectedProduct = ref(Product.SHIRT);
 const selectedColor = ref(ProductColor.WHITE);
@@ -233,8 +236,10 @@ onMounted(() => {
 
     <button
       class="price-preview-button"
-      :class="{ disabled: imagePreviewLoading }"
-      :disabled="imagePreviewLoading"
+      :class="{
+        disabled: imagePreviewLoading || productPreviewErrorMessageBoolean,
+      }"
+      :disabled="imagePreviewLoading || productPreviewErrorMessageBoolean"
       @click="redirectToCartView"
     >
       {{ productPricePreview }} KM | Dodaj u korpu
@@ -452,7 +457,7 @@ onMounted(() => {
   margin-bottom: 2rem;
   margin-top: 1rem;
   font-weight: bold;
-  padding: 0.6rem 1.2rem;
+  padding: 0.8rem 1.3rem;
   font-size: 1rem;
   background-color: tomato;
   border: none;
@@ -484,8 +489,22 @@ onMounted(() => {
     .tweet-url-submit {
       width: 65%;
       margin: 0.5rem 0rem;
+
+      &:hover {
+        background-color: var(--button-color-back);
+      }
     }
   }
+
+  .price-preview-button {
+    width: 80%;
+    margin-bottom: 3rem;
+
+    &:hover {
+      background-color: tomato;
+    }
+  }
+
   .product-preview {
     width: 96%;
   }

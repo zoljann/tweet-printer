@@ -238,6 +238,13 @@ onMounted(() => {
 
     .right-side {
       padding-right: 1rem;
+
+      span {
+        &:hover {
+          color: var(--text-color);
+          text-decoration: none;
+        }
+      }
     }
   }
 

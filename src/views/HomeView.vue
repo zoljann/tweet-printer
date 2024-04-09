@@ -160,6 +160,10 @@ const setErrorMessage = (message: string) => {
       button {
         margin-bottom: 1rem;
         width: 70%;
+
+        &:hover {
+          background-color: var(--button-color-back);
+        }
       }
 
       input {

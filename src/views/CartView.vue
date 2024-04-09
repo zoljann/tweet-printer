@@ -25,7 +25,8 @@ const checkIsValidOrder = async () => {
     !mobileNumber.value.trim() ||
     !state.value.trim() ||
     !city.value.trim() ||
-    !address.value.trim()
+    !address.value.trim() ||
+    !email.value.trim()
   ) {
     inputErrorMessage.value = 'Nisi ispunio obavezna polja 😐';
 
@@ -56,10 +57,7 @@ const checkIsValidOrder = async () => {
     return;
   }
 
-  if (
-    email.value &&
-    !/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email.value)
-  ) {
+  if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email.value)) {
     inputErrorMessage.value = 'Neispravan e-mail 😐';
 
     return;
@@ -241,7 +239,7 @@ onMounted(() => {
           <input type="text" v-model="address" placeholder="Adresa" required />
         </div>
         <div class="form-group">
-          <label>Email <span class="text-important">*opcionalno</span></label>
+          <label>Email <span class="text-important">*obavezno</span></label>
           <input type="text" v-model="email" placeholder="E-mail" />
         </div>
         <div>
@@ -539,6 +537,10 @@ onMounted(() => {
 
     .remove-item-button {
       margin-left: 2rem;
+
+      &:hover {
+        background-color: #8f8f8f;
+      }
     }
   }
 
@@ -559,8 +561,13 @@ onMounted(() => {
     }
 
     .checkout-button {
+      margin-bottom: 3rem;
       width: 100%;
       font-size: 1rem;
+
+      &:hover {
+        background-color: tomato;
+      }
     }
   }
 
