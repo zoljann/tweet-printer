@@ -20,6 +20,7 @@ const tweetUrl = ref(store.getCurrentTweetUrl);
 const tweetUrlInput = ref('');
 const tweetUrlErrorMessage = ref('');
 const imagePreviewUrl = ref('https://i.imgur.com/YDzuLdB.jpg');
+const tweetImageBase64Val = ref('');
 const imagePreviewLoading = ref(false);
 const productPreviewErrorMessage = ref('');
 const productPreviewErrorMessageBoolean = computed(
@@ -69,9 +70,8 @@ const getProductPreview = async () => {
     side: selectedPrintSide.value,
   };
 
-  const { image, pricePreview, error } = await createImagePreview(
-    imagePreviewPayload
-  );
+  const { image, pricePreview, tweetImageBase64, error } =
+    await createImagePreview(imagePreviewPayload);
 
   if (error) {
     productPreviewErrorMessage.value = 'Došlo je do greške! Osvježi stranicu.';
@@ -81,6 +81,7 @@ const getProductPreview = async () => {
   }
 
   imagePreviewUrl.value = `data:image/jpeg;base64,${image}`;
+  tweetImageBase64Val.value = tweetImageBase64;
   productPricePreview.value = pricePreview;
   imagePreviewLoading.value = false;
 };
@@ -93,6 +94,7 @@ const redirectToCartView = () => {
     printSide: selectedPrintSide.value,
     tweetUrl: tweetUrl.value,
     image: imagePreviewUrl.value,
+    tweetImageBase64: tweetImageBase64Val.value,
     price: productPricePreview.value,
   };
   const storedCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');

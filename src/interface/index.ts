@@ -12,6 +12,7 @@ export interface ICartItem {
   printSide: ProductPrintSide;
   tweetUrl: string;
   image: string;
+  tweetImageBase64: string;
   price: number;
 }
 
