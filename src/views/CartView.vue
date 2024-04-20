@@ -239,7 +239,12 @@ onMounted(() => {
           <input type="text" v-model="address" placeholder="Adresa" required />
         </div>
         <div class="form-group">
-          <label>Email <span class="text-important">*obavezno</span></label>
+          <label
+            >Email
+            <span class="text-important"
+              >*obavezno zbog potvrde narudžbe</span
+            ></label
+          >
           <input type="text" v-model="email" placeholder="E-mail" />
         </div>
         <div>
