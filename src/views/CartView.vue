@@ -162,7 +162,20 @@ onMounted(() => {
 
 <template>
   <button class="return-back-button" @click="router.push({ name: 'order' })">
-    🡠 Izradi još majica
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+    </svg>
+    Izradi još majica
   </button>
   <div class="wrapper">
     <div class="cart">
@@ -333,6 +346,7 @@ onMounted(() => {
 }
 
 .return-back-button {
+  display: flex;
   background-color: #375d682f;
   border: none;
   cursor: pointer;
@@ -342,6 +356,7 @@ onMounted(() => {
   margin: 1rem;
   padding: 0.5rem;
   text-align: center;
+  align-items: center;
 
   &:hover {
     transition: 0.3s ease;
