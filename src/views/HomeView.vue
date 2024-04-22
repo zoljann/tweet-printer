@@ -37,7 +37,7 @@ const setErrorMessage = (message: string) => {
       <img class="img-desktop" src="https://i.imgur.com/dkCr8xN.jpg" />
     </div>
     <div class="print-tweet-section">
-      <h1>Isprintaj svoj tvit na majicu ili na šoljicu❗🤗</h1>
+      <h1>Isprintaj bilo koji tvit na majicu❗🤗</h1>
       <input
         type="text"
         v-model="tweetUrl"
@@ -46,9 +46,9 @@ const setErrorMessage = (message: string) => {
       <span v-if="errorMessage" class="input-error">{{ errorMessage }}</span>
       <button @click="redirectToOrderView()">Napravi majicu👉</button>
       <p>
-        Zalijepi link tvita u polje iznad i klikom na
+        Zalijepi link bilo kog tvita u polje iznad i klikom na
         <span class="important-text">napravi majicu</span> pređi na sljedeći
-        korak uređivanja svoje majice ili šoljice👕
+        korak uređivanja svoje majice👕
       </p>
     </div>
     <img class="img-mob" src="https://i.imgur.com/SgFI3rk.jpg" />
@@ -153,7 +153,7 @@ const setErrorMessage = (message: string) => {
 
       p {
         width: 90%;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         margin: 1.1rem 0;
       }
 

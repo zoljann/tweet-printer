@@ -161,6 +161,9 @@ onMounted(() => {
 </script>
 
 <template>
+  <button class="return-back-button" @click="router.push({ name: 'order' })">
+    🡠 Izradi još majica
+  </button>
   <div class="wrapper">
     <div class="cart">
       <div v-for="(item, index) in cartItems" :key="index" class="cart-item">
@@ -282,14 +285,20 @@ onMounted(() => {
         </div>
       </div>
       <h3>Primalac</h3>
-      <div>
-        {{ name }}
+      <div class="buyer">
+        <div>
+          Ime i prezime: <span class="important">{{ name }}</span>
+        </div>
+        <div>
+          Broj mobitela: <span class="important">{{ mobileNumber }}</span>
+        </div>
+        <div>
+          Adresa: <span class="important">{{ city }}, {{ address }}</span>
+        </div>
+        <div>
+          Email: <span class="important">{{ email }}</span>
+        </div>
       </div>
-      <div>
-        {{ mobileNumber }}
-      </div>
-      <div>{{ city }}, {{ address }}</div>
-      <div>{{ email }}</div>
 
       <button class="close-button" @click="closeConfirmationModal">
         <svg
@@ -321,6 +330,23 @@ onMounted(() => {
 
 .mobile-line {
   display: none;
+}
+
+.return-back-button {
+  background-color: #375d682f;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+
+  &:hover {
+    transition: 0.3s ease;
+    background-color: var(--button-color-hover);
+  }
 }
 
 .cart {
@@ -486,6 +512,15 @@ onMounted(() => {
       font-weight: bold;
     }
   }
+
+  .buyer {
+    text-align: left;
+    padding-left: 1rem;
+
+    .important {
+      font-weight: bold;
+    }
+  }
 }
 
 .close-button {
@@ -526,6 +561,11 @@ onMounted(() => {
     width: 95%;
   }
 
+  .return-back-button {
+    border-radius: 1rem;
+    margin: 0;
+  }
+
   .cart {
     width: 95%;
     align-items: center;
@@ -559,10 +599,12 @@ onMounted(() => {
 
     .form-group input {
       width: 90%;
+      font-size: 0.9rem;
     }
 
     .form-group select {
       width: 95%;
+      font-size: 0.9rem;
     }
 
     .checkout-button {

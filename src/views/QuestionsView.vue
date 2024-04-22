@@ -51,6 +51,10 @@
     text-align: center;
   }
 
+  h3 {
+    color: #6b919c;
+  }
+
   a {
     color: wheat;
   }
