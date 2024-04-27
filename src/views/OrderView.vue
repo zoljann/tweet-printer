@@ -325,6 +325,7 @@ onMounted(() => {
 }
 
 .product-preview {
+  margin-top: 1rem;
   position: relative;
   width: 32%;
 
