@@ -9,8 +9,6 @@ import {
   ProductColor,
   ProductSize,
   ProductPrintSide,
-  SvgShirtIconPath,
-  SvgMugIconPath,
   ICartItem,
 } from '../interface';
 
@@ -31,7 +29,7 @@ const selectedProduct = ref(Product.SHIRT);
 const selectedColor = ref(ProductColor.WHITE);
 const selectedSize = ref(ProductSize.M);
 const selectedPrintSide = ref(ProductPrintSide.FRONT);
-const products = [
+/* const products = [
   {
     name: Product.SHIRT,
     path: SvgShirtIconPath,
@@ -40,7 +38,7 @@ const products = [
     name: Product.MUG,
     path: SvgMugIconPath,
   },
-];
+]; */
 
 const updateTweetUrl = () => {
   if (!isValidUrl(tweetUrlInput.value) || !tweetUrlInput.value) {
@@ -106,11 +104,11 @@ const redirectToCartView = () => {
   router.push({ name: 'cart' });
 };
 
-const setSelectedProduct = (product: Product) => {
+/* const setSelectedProduct = (product: Product) => {
   selectedProduct.value = product;
 
   getProductPreview();
-};
+}; */
 
 const setSelectedProductColor = (color: ProductColor) => {
   selectedColor.value = color;
