@@ -52,7 +52,7 @@ onMounted(() => {
     <div class="left-side">
       <img
         class="logo"
-        src="../assets/favicon.png"
+        src="../assets/logo.png"
         @click="router.push({ name: 'home' })"
       />
       <span class="item" @click="router.push({ name: 'home' })">Početna</span>
@@ -85,7 +85,7 @@ onMounted(() => {
       </span>
       <img
         class="logo-mob"
-        src="../assets/favicon.png"
+        src="../assets/logo.png"
         @click="router.push({ name: 'home' })"
       />
       <span></span>
@@ -125,7 +125,7 @@ onMounted(() => {
       <div class="menu-logo-wrapper">
         <img
           class="menu-logo"
-          src="../assets/favicon.png"
+          src="../assets/logo.png"
           @click="router.push({ name: 'home' })"
         />
       </div>

@@ -10,6 +10,7 @@ const store = useStore();
 const cartItems = ref(store.getCartItems);
 const inputErrorMessage = ref('');
 const showConfirmationModal = ref(false);
+const isConfirmButtonDisabled = ref(false);
 
 const name = ref('');
 const mobileNumber = ref('');
@@ -68,6 +69,8 @@ const checkIsValidOrder = async () => {
 };
 
 const confirmOrder = async () => {
+  isConfirmButtonDisabled.value = true;
+
   const orderPayload: IOrderPayload = {
     name: name.value,
     mobileNumber: mobileNumber.value,
@@ -87,6 +90,7 @@ const confirmOrder = async () => {
   if (error) {
     store.notification.text = error;
     store.notification.type = 'error';
+    isConfirmButtonDisabled.value = false;
   }
 
   if (success) {
@@ -316,7 +320,11 @@ onMounted(() => {
         </div>
       </div>
 
-      <button class="close-button" @click="closeConfirmationModal">
+      <button
+        class="close-button"
+        :disabled="isConfirmButtonDisabled"
+        @click="closeConfirmationModal"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -333,7 +341,12 @@ onMounted(() => {
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
-      <button class="confirm-button" @click="confirmOrder">
+      <button
+        :disabled="isConfirmButtonDisabled"
+        :class="{ disabled: isConfirmButtonDisabled }"
+        class="confirm-button"
+        @click="confirmOrder"
+      >
         Potvrdi narudžbu
       </button>
     </div>
@@ -578,6 +591,10 @@ onMounted(() => {
   &:hover {
     transition: 0.3s ease;
     background-color: rgb(219, 85, 61);
+  }
+
+  &.disabled {
+    opacity: 0.5;
   }
 }
 
