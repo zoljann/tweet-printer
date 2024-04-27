@@ -152,7 +152,7 @@ onMounted(() => {
       tweetUrlErrorMessage
     }}</span>
 
-    <div class="button-icons">
+    <!--     <div class="button-icons">
       <button
         v-for="(product, index) in products"
         :key="index"
@@ -179,7 +179,7 @@ onMounted(() => {
         </svg>
         <span>{{ product.name === Product.SHIRT ? 'Majica' : 'Šolja' }}</span>
       </button>
-    </div>
+    </div> -->
 
     <span v-if="productPreviewErrorMessage" class="product-preview-error">{{
       productPreviewErrorMessage

@@ -11,17 +11,17 @@
     <span
       >🚚 Besplatna dostava
       <p>
-        Dostava na području Bosne i Hercegovine
-        <span class="important">(trenutno)</span>, narudžba je na vašoj adresi
-        kroz 5-7 radnih dana
+        Dostava moguća na području BiH, Srbije(uskoro) i Hrvatske(uskoro), a
+        narudžba je na vašoj adresi kroz 5-7 radnih dana i dostava je
+        <span class="important">besplatna</span>
       </p></span
     >
     <span
       >💰 Više načina plaćanja
       <p>
-        Plaćanje se vrši pouzećem kuriru
-        <span class="important">(trenutno)</span>, a plaćanje visa/mastercard
-        karticama <span class="important">(uskoro💳)</span>
+        Plaćanje se trenutno vrši prilikom preuzimanja narudžbe kuriru, a
+        plaćanje putem visa/mastercard kartica stiže
+        <span class="important">uskoro💳</span>
       </p>
     </span>
   </div>

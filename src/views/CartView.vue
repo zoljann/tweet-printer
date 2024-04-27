@@ -175,7 +175,7 @@ onMounted(() => {
     >
       <path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
     </svg>
-    Izradi još majica
+    <span>Izradi još majica</span>
   </button>
   <div class="wrapper">
     <div class="cart">
@@ -263,7 +263,7 @@ onMounted(() => {
           >
           <input type="text" v-model="email" placeholder="E-mail" />
         </div>
-        <div>
+        <div class="shipping-input">
           <input
             type="radio"
             v-model="shipping"
@@ -271,7 +271,10 @@ onMounted(() => {
             value="pickup"
             required
           />
-          <span for="bih">Plaćanje pouzećem</span>
+          <span for="bih"
+            >Plaćanje pouzećem -
+            <span class="important">BESPLATNA DOSTAVA</span></span
+          >
         </div>
         <div class="total-price">
           Ukupno:
@@ -362,6 +365,11 @@ onMounted(() => {
     transition: 0.3s ease;
     background-color: var(--button-color-hover);
   }
+
+  span {
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
+  }
 }
 
 .cart {
@@ -415,7 +423,7 @@ onMounted(() => {
     font-weight: bold;
     font-size: 1.2em;
     margin-top: auto;
-    color: #4c808f;
+    color: tomato;
   }
 }
 
@@ -471,11 +479,18 @@ onMounted(() => {
 
   .total-price {
     font-weight: bold;
-    text-decoration: underline;
+    margin: 1rem 0;
 
     &-value {
       font-size: 1.5rem;
       color: tomato;
+    }
+  }
+
+  .shipping-input {
+    .important {
+      color: tomato;
+      font-size: 0.9rem;
     }
   }
 }
