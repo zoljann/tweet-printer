@@ -217,7 +217,7 @@ onMounted(() => {
 
 @media only screen and (max-width: 768px) {
   .navigation {
-    padding: 1rem 0.5rem 3.2rem 1rem;
+    padding: 1rem 0.5rem 2.5rem 1rem;
 
     .left-side {
       .logo,

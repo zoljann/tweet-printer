@@ -1,16 +1,14 @@
 <template>
   <div class="questions">
     <div class="content">
-      <h3>Kakvog su kvaliteta majice i šoljice?👕🤞</h3>
+      <h3>Kakvog su kvaliteta majice?👕🤞</h3>
       <p>
         Naša kolekcija majica odlikuje se vrhunskom kvalitetom, koristeći
         <span class="important">pažljivo odabrani pamuk</span> i posebnu pažnju
-        pri šivanju kako bi se osigurala dugotrajnost i udobnost. Također, naše
-        šoljice su izrađene od
-        <span class="important">visokokvalitetne keramike</span>, s posebnom
-        pažnjom posvećenom detaljima kako bi se osigurala izdržljivost i
-        estetska privlačnost. Ove proizvode odlikuje trajna vrijednost,
-        pružajući zadovoljstvo korisnicima kroz dugi vremenski period.
+        pri šivanju kako bi se osigurala dugotrajnost i udobnost. Posvećenost
+        detaljima osigurava da svaka majica nosi pečat vrhunske izrade i pažnje
+        prema kvalitetu. Ove proizvode odlikuje trajna vrijednost, pružajući
+        zadovoljstvo korisnicima kroz dugi vremenski period.
       </p>
       <h3>Kako funkcioniše dostava i plaćanje?🚚💳</h3>
       <p>
@@ -54,12 +52,9 @@
   h3 {
     color: #6b919c;
   }
-
-  a {
-    color: wheat;
-  }
 }
 
+a,
 .important {
   color: var(--text-color-error);
 }
