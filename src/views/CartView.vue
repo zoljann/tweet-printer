@@ -111,7 +111,7 @@ const calculateTotalPrice = () => {
     totalPrice += item.price;
   });
 
-  return totalPrice;
+  return totalPrice + 5;
 };
 
 const removeItemFromCart = (item: ICartItem) => {
@@ -274,11 +274,11 @@ onMounted(() => {
           />
           <span for="bih"
             >Plaćanje pouzećem -
-            <span class="important">BESPLATNA DOSTAVA</span></span
+            <span class="important">dostava 5KM</span></span
           >
         </div>
         <div class="total-price">
-          Ukupno:
+          Ukupno sa dostavom:
           <span class="total-price-value"> {{ calculateTotalPrice() }}KM</span>
         </div>
         <span class="input-error">{{ inputErrorMessage }}</span>
@@ -298,7 +298,8 @@ onMounted(() => {
           >, <span class="price"> {{ item.price }}KM</span>
         </div>
         <div class="total-price">
-          Ukupno: <span class="total"> {{ calculateTotalPrice() }}KM</span>
+          Ukupno sa dostavom:
+          <span class="total"> {{ calculateTotalPrice() }}KM</span>
         </div>
       </div>
       <h3>Primalac</h3>

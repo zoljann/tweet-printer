@@ -72,7 +72,8 @@ const getProductPreview = async () => {
     await createImagePreview(imagePreviewPayload);
 
   if (error) {
-    productPreviewErrorMessage.value = 'Došlo je do greške! Osvježi stranicu.';
+    productPreviewErrorMessage.value =
+      'Došlo je do greške! Pokušaj ponovo kasnije.';
     imagePreviewLoading.value = false;
 
     return;

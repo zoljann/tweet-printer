@@ -9,11 +9,10 @@
       </p></span
     >
     <span
-      >🚚 Besplatna dostava
+      >🚚 Dostava
       <p>
-        Dostava moguća na području BiH, Srbije(uskoro) i Hrvatske(uskoro), a
-        narudžba je na vašoj adresi kroz 5-7 radnih dana i dostava je
-        <span class="important">besplatna</span>
+        Dostava moguća na području Bosne i Hercegovine, Srbije(uskoro) i
+        Hrvatske(uskoro) te narudžbe se šalju svakog utorka kod vas
       </p></span
     >
     <span
