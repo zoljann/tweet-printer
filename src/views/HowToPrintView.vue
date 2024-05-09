@@ -24,15 +24,14 @@ const router = useRouter();
       <h4>3. Uredi majicu po svojim željama</h4>
       Odaberi boju, veličinu i poziciju printa zatim na dnu klikni na dugme
       <span class="important">dodaj u korpu</span> da bi naručio majicu. Ukoliko
-      želiš da mi ovo uradimo za tebe a ti nam pošalješ sliku tvita ili tekst,
+      imaš neke posebne želje ili nemaš link tvita a imaš samo sliku i slično,
       piši nam na instagramu
       <a
         class="home-page"
         href="https://www.instagram.com/isprintajsvojtvit"
         target="_blank"
         >@isprintajsvojtvit</a
-      >
-      svoje želje🤗
+      >🤗
       <img class="mobile" src="https://i.imgur.com/fQkCceS.png" />
       <img class="desktop" src="https://i.imgur.com/R0XInC8.png" />
     </div>
