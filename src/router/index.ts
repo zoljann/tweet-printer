@@ -24,6 +24,11 @@ const router = createRouter({
       component: () => import('../views/CartView.vue'),
     },
     {
+      path: '/kako-isprintati-tvit-na-majicu',
+      name: 'howtoprint',
+      component: () => import('../views/HowToPrintView.vue'),
+    },
+    {
       path: '/:catchAll(.*)*',
       name: 'catchAll',
       component: () => import('../views/NotFoundView.vue'),

@@ -34,7 +34,6 @@
 <style scoped lang="scss">
 .questions {
   cursor: default;
-  height: 83%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,7 +49,7 @@
   }
 
   h3 {
-    color: #6b919c;
+    color: var(--text-color-error);
   }
 }
 

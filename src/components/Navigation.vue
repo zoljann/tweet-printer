@@ -59,6 +59,9 @@ onMounted(() => {
       <span class="item" @click="router.push({ name: 'questions' })"
         >Česta pitanja</span
       >
+      <span class="item" @click="router.push({ name: 'howtoprint' })"
+        >Kako isprintati tvit na majicu</span
+      >
       <a
         class="item"
         href="https://www.instagram.com/isprintajsvojtvit"
@@ -140,6 +143,12 @@ onMounted(() => {
         @click="handleMobileMenuclick('questions')"
         :class="{ activeroute: route.name === 'questions' }"
         >❓ Česta pitanja</span
+      >
+      <span
+        class="item"
+        @click="handleMobileMenuclick('howtoprint')"
+        :class="{ activeroute: route.name === 'howtoprint' }"
+        >❓ Kako isprintati tvit na majicu</span
       >
       <a
         class="item"
