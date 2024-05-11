@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onBeforeMount, watch } from 'vue';
+import { loadScript } from '@paypal/paypal-js';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
-import { createOrder } from '../api';
+import { completePaypalOrder, createOrder } from '../api';
 import { ICartItem, IOrderPayload, Product, ProductColor } from '../interface';
 
 const router = useRouter();
@@ -19,6 +20,13 @@ const city = ref('');
 const address = ref('');
 const email = ref('');
 const shipping = ref('pickup');
+
+const states = [
+  { value: 'BiH', label: 'Bosna i Hercegovina' },
+  { value: 'Hrvatska', label: 'Hrvatska' },
+  { value: 'Srbija', label: 'Srbija' },
+  { value: 'Crna Gora', label: 'Crna Gora' },
+];
 
 const checkIsValidOrder = async () => {
   if (
@@ -85,12 +93,18 @@ const confirmOrder = async () => {
     }),
   };
 
-  const { success, error } = await createOrder(orderPayload);
+  const { success, paypalPending, orderId, error } = await createOrder(
+    orderPayload
+  );
 
   if (error) {
     store.notification.text = error;
     store.notification.type = 'error';
     isConfirmButtonDisabled.value = false;
+  }
+
+  if (paypalPending) {
+    return orderId;
   }
 
   if (success) {
@@ -111,7 +125,14 @@ const calculateTotalPrice = () => {
     totalPrice += item.price;
   });
 
-  return totalPrice + 5;
+  return totalPrice;
+};
+
+const calculateTotalPriceWithShipping = () => {
+  const totalPrice = calculateTotalPrice();
+  const shipping = state.value === 'BiH' ? 5 : 15;
+
+  return totalPrice + shipping;
 };
 
 const removeItemFromCart = (item: ICartItem) => {
@@ -157,10 +178,67 @@ const formatProductName = (product: Product) => {
   }
 };
 
-onMounted(() => {
+onBeforeMount(async () => {
   if (!cartItems.value.length) {
     router.push({ name: 'home' });
   }
+});
+
+watch(showConfirmationModal, (newValue) => {
+  if (newValue && shipping.value === 'paypal') {
+    loadScript({
+      clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
+      currency: 'EUR',
+    })
+      .then((paypal: any) => {
+        try {
+          paypal
+            .Buttons({
+              style: {
+                label: 'pay',
+                color: 'blue',
+              },
+              async createOrder() {
+                const orderId = await confirmOrder();
+
+                return orderId;
+              },
+              async onApprove(data: any) {
+                const { success, error } = await completePaypalOrder(
+                  data.orderID
+                );
+
+                if (success) {
+                  store.notification.text = success;
+                  store.notification.type = 'success';
+                  removeAllItemsFromCart();
+                } else if (error) {
+                  store.notification.text = error;
+                  store.notification.type = 'error';
+                  isConfirmButtonDisabled.value = false;
+                }
+              },
+              onError: function (error: any) {
+                isConfirmButtonDisabled.value = false;
+                console.log('Error on approve paypal transaction', error);
+              },
+              onCancel: function () {
+                isConfirmButtonDisabled.value = false;
+              },
+            })
+            .render('#paypal-button-container');
+        } catch (error) {
+          console.error('Failed to render the PayPal buttons', error);
+        }
+      })
+      .catch((error) => {
+        console.error('Failed to load the PayPal JS SDK script', error);
+      });
+  }
+});
+
+watch(state, (newValue) => {
+  shipping.value = newValue !== 'BiH' ? 'paypal' : 'pickup';
 });
 </script>
 
@@ -244,7 +322,13 @@ onMounted(() => {
         <div class="form-group">
           <label for="state">Država</label>
           <select id="state" v-model="state" name="state" required>
-            <option value="BiH">Bosna i Hercegovina</option>
+            <option
+              class="state-option"
+              v-for="state in states"
+              :value="state.value"
+            >
+              {{ state.label }}
+            </option>
           </select>
         </div>
         <div class="form-group">
@@ -265,25 +349,42 @@ onMounted(() => {
           <input type="text" v-model="email" placeholder="E-mail" />
         </div>
         <div class="shipping-input">
-          <input
-            type="radio"
-            v-model="shipping"
-            name="state"
-            value="pickup"
-            required
-          />
-          <span for="bih"
-            >Plaćanje pouzećem -
-            <span class="important">dostava 5KM</span></span
-          >
+          <label class="container" v-if="state === 'BiH'">
+            Plaćanje prilikom preuzimanja
+            <input
+              class="shipping-radio-button"
+              type="radio"
+              v-model="shipping"
+              name="state"
+              value="pickup"
+              required
+            />
+            <span class="checkmark"></span>
+          </label>
+          <div>
+            <label class="container">
+              Plaćanje karticama ili paypalom
+              <input
+                class="shipping-radio-button"
+                type="radio"
+                v-model="shipping"
+                name="state"
+                value="paypal"
+                required
+              />
+              <span class="checkmark"></span>
+            </label>
+          </div>
         </div>
         <div class="total-price">
-          Ukupno sa dostavom:
+          Cijena narudžbe:
           <span class="total-price-value"> {{ calculateTotalPrice() }}KM</span>
         </div>
         <span class="input-error">{{ inputErrorMessage }}</span>
       </form>
-      <button class="checkout-button" @click="checkIsValidOrder">Naruči</button>
+      <button class="checkout-button" @click="checkIsValidOrder">
+        {{ shipping === 'paypal' ? 'Plaćanje' : 'Naruči' }}
+      </button>
     </div>
   </div>
 
@@ -299,7 +400,7 @@ onMounted(() => {
         </div>
         <div class="total-price">
           Ukupno sa dostavom:
-          <span class="total"> {{ calculateTotalPrice() }}KM</span>
+          <span class="total"> {{ calculateTotalPriceWithShipping() }}KM</span>
         </div>
       </div>
       <h3>Primalac</h3>
@@ -311,7 +412,8 @@ onMounted(() => {
           Broj mobitela: <span class="important">{{ mobileNumber }}</span>
         </div>
         <div>
-          Adresa: <span class="important">{{ city }}, {{ address }}</span>
+          Adresa:
+          <span class="important">{{ state }}, {{ city }}, {{ address }}</span>
         </div>
         <div>
           Email: <span class="important">{{ email }}</span>
@@ -340,6 +442,7 @@ onMounted(() => {
         </svg>
       </button>
       <button
+        v-if="shipping === 'pickup'"
         :disabled="isConfirmButtonDisabled"
         :class="{ disabled: isConfirmButtonDisabled }"
         class="confirm-button"
@@ -347,6 +450,9 @@ onMounted(() => {
       >
         Potvrdi narudžbu
       </button>
+      <div v-else class="paypal-buttons">
+        <div id="paypal-button-container"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -443,6 +549,10 @@ onMounted(() => {
   font-size: 0.7rem;
 }
 
+.paypal-buttons {
+  margin: 1rem;
+}
+
 .checkout {
   width: 50%;
   margin: 1rem 3rem;
@@ -469,6 +579,17 @@ onMounted(() => {
     border: none;
     border-radius: 0.2rem;
     background-color: var(--input-color-back);
+  }
+
+  .state-option {
+    font-size: 0.9rem;
+    background-color: rgb(87, 87, 87);
+    color: #ffffff;
+
+    &:checked {
+      background-color: var(--text-color-hover);
+      color: white;
+    }
   }
 
   .checkout-button {
@@ -499,9 +620,58 @@ onMounted(() => {
   }
 
   .shipping-input {
-    .important {
-      color: tomato;
+    .container {
+      display: block;
+      position: relative;
+      padding-left: 2rem;
+      margin-top: 0.5rem;
       font-size: 0.9rem;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #eee;
+      border-radius: 50%;
+    }
+
+    .container input:checked ~ .checkmark {
+      background-color: #2196f3;
+    }
+
+    .checkmark:after {
+      content: '';
+      position: absolute;
+      display: none;
+    }
+
+    .container input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    .container .checkmark:after {
+      top: 6px;
+      left: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
     }
   }
 }
@@ -518,6 +688,15 @@ onMounted(() => {
   align-items: center;
 }
 
+.modal-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
 .modal-container {
   text-align: center;
   position: relative;
@@ -526,6 +705,8 @@ onMounted(() => {
   height: auto;
   background-color: #dadada;
   color: rgb(5, 5, 5);
+  max-height: 80%;
+  overflow-y: scroll;
 
   h3 {
     padding-top: 1rem;
@@ -547,6 +728,7 @@ onMounted(() => {
 
     .price {
       font-style: italic;
+      color: tomato;
     }
 
     .number {
@@ -631,6 +813,16 @@ onMounted(() => {
       &:hover {
         background-color: #8f8f8f;
       }
+    }
+  }
+
+  .shipping-input {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    .container {
+      text-align: left;
+      margin-left: 0.5rem;
     }
   }
 

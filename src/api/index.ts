@@ -47,3 +47,20 @@ export const createOrder = async (orderPayload: IOrderPayload) => {
     };
   }
 };
+
+export const completePaypalOrder = async (orderId: string) => {
+  try {
+    const result = await http.post('/order/complete-paypal-order', { orderId });
+
+    return result.data;
+  } catch (e) {
+    const error = e instanceof AxiosError && e.response ? e.response.data : e;
+    console.log(error);
+
+    return {
+      error:
+        error.message ||
+        'Došlo je do greške prilikom plaćanja, pokušaj opet 😭',
+    };
+  }
+};
