@@ -12,10 +12,12 @@
       </p>
       <h3>Kako funkcioniše dostava i plaćanje?🚚💳</h3>
       <p>
-        Prilikom naručivanja narudžbe imamo dvije opcije dostave; plaćanje
-        pouzećem i plaćanje karticama <span class="important">(uskoro)</span>.
-        Narudžba je na vašoj adresi kroz 5-7 radnih dana. Povrate novca ukoliko
-        niste zadovoljni vršimo kroz 24h.
+        Prilikom porudžbine imamo dvije opcije dostave;
+        <span class="important">plaćanje pouzećem</span>(samo BiH) i
+        <span class="important">plaćanje karticama ili paypalom</span>. Narudžba
+        je na vašoj adresi kroz 3-5 radnih dana u BiH, a za ostale države 5-7
+        radnih dana(uz odrđene varijacije). Povrate novca ukoliko niste
+        zadovoljni vršimo kroz 24h od primanja porudžbine.
       </p>
       <h3>Slobodno pitaj🙌</h3>
       <p>

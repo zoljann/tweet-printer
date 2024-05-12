@@ -243,7 +243,8 @@ onMounted(() => {
       :disabled="imagePreviewLoading || productPreviewErrorMessageBoolean"
       @click="redirectToCartView"
     >
-      {{ productPricePreview }} KM | Dodaj u korpu
+      {{ productPricePreview }}KM / {{ productPricePreview * 0.52 }}€ | Dodaj u
+      korpu
     </button>
   </div>
 </template>

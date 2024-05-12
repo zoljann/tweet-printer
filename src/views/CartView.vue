@@ -130,7 +130,7 @@ const calculateTotalPrice = () => {
 
 const calculateTotalPriceWithShipping = () => {
   const totalPrice = calculateTotalPrice();
-  const shipping = state.value === 'BiH' ? 5 : 15;
+  const shipping = state.value === 'BiH' ? 5 : 10;
 
   return totalPrice + shipping;
 };
@@ -275,7 +275,9 @@ watch(state, (newValue) => {
             <span v-if="item.product !== Product.MUG">{{
               item.printSide
             }}</span>
-            <span class="price">{{ item.price }}KM</span>
+            <span class="price"
+              >{{ item.price }}KM / {{ item.price * 0.52 }}€</span
+            >
           </div>
           <button class="remove-item-button" @click="removeItemFromCart(item)">
             <svg
@@ -378,7 +380,10 @@ watch(state, (newValue) => {
         </div>
         <div class="total-price">
           Cijena narudžbe:
-          <span class="total-price-value"> {{ calculateTotalPrice() }}KM</span>
+          <span class="total-price-value">
+            {{ calculateTotalPrice() }}KM /
+            {{ calculateTotalPrice() * 0.52 }}€</span
+          >
         </div>
         <span class="input-error">{{ inputErrorMessage }}</span>
       </form>
@@ -396,11 +401,22 @@ watch(state, (newValue) => {
           <span class="number">1x</span> {{ formatProductName(item.product) }} -
           {{ formatColorName(item.color) }}
           <span v-if="item.product !== Product.MUG">, vel. {{ item.size }}</span
-          >, <span class="price"> {{ item.price }}KM</span>
+          >,
+          <span class="price">
+            {{ item.price }}KM / {{ item.price * 0.52 }}€</span
+          >
         </div>
+        <span> + dostava </span>
+        <span class="price"
+          >{{ state === 'BiH' ? 5 : 10 }}KM /
+          {{ state === 'BiH' ? 5 * 0.52 : 10 * 0.52 }}€</span
+        >
         <div class="total-price">
-          Ukupno sa dostavom:
-          <span class="total"> {{ calculateTotalPriceWithShipping() }}KM</span>
+          Ukupno:
+          <span class="total">
+            {{ calculateTotalPriceWithShipping() }}KM /
+            {{ (calculateTotalPriceWithShipping() * 0.52).toFixed(2) }}€</span
+          >
         </div>
       </div>
       <h3>Primalac</h3>

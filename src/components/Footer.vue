@@ -11,16 +11,15 @@
     <span
       >🚚 Dostava
       <p>
-        Dostava moguća na području Bosne i Hercegovine, Srbije(uskoro) i
-        Hrvatske(uskoro) te narudžbe se šalju svakog utorka kod vas
+        Dostava se vrši na području Bosne i Hercegovine, Srbije, Hrvatske i Crne
+        Gore
       </p></span
     >
     <span
       >💰 Više načina plaćanja
       <p>
-        Plaćanje se trenutno vrši prilikom preuzimanja narudžbe kuriru, a
-        plaćanje putem visa/mastercard kartica stiže
-        <span class="important">uskoro💳</span>
+        Podržavamo više načina plaćanja; prilikom preuzimanja narudžbe, plaćanje
+        putem paypala i plaćanje VISA i MASTERCARD karticama💳
       </p>
     </span>
   </div>
