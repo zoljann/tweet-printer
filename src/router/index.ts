@@ -4,6 +4,11 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue'),
+    },
+    {
       path: '/',
       name: 'home',
       component: () => import('../views/HomeView.vue'),
@@ -17,6 +22,21 @@ const router = createRouter({
       path: '/naruci',
       name: 'order',
       component: () => import('../views/OrderView.vue'),
+    },
+    {
+      path: '/narudzbe',
+      name: 'orders',
+      component: () => import('../views/OrdersListView.vue'),
+      //@ts-ignore
+      beforeEnter: (to, from, next) => {
+        const isAuthenticated = localStorage.getItem('authenticated');
+
+        if (isAuthenticated) {
+          next();
+        } else {
+          next('/login');
+        }
+      },
     },
     {
       path: '/korpa',

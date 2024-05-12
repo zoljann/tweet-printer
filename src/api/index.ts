@@ -31,6 +31,40 @@ export const createImagePreview = async ({
   }
 };
 
+export const getAllOrders = async () => {
+  try {
+    const result = await http.get('/order/get-all');
+
+    return result.data;
+  } catch (e) {
+    const error = e instanceof AxiosError && e.response ? e.response.data : e;
+
+    return {
+      error: error.message || 'Došlo je do greške prilikom dohvaćanja naružbi',
+    };
+  }
+};
+
+export const updateStatusByOrderId = async (
+  orderId: string,
+  status: string
+) => {
+  try {
+    const result = await http.patch('/order/update-status', {
+      orderId,
+      status,
+    });
+
+    return result.data;
+  } catch (e) {
+    const error = e instanceof AxiosError && e.response ? e.response.data : e;
+
+    return {
+      error: error.message || 'Došlo je do greške prilikom ažuriranja statusa',
+    };
+  }
+};
+
 export const createOrder = async (orderPayload: IOrderPayload) => {
   try {
     const result = await http.post('/order/create', orderPayload);
@@ -38,7 +72,6 @@ export const createOrder = async (orderPayload: IOrderPayload) => {
     return result.data;
   } catch (e) {
     const error = e instanceof AxiosError && e.response ? e.response.data : e;
-    console.log(error);
 
     return {
       error:
@@ -55,7 +88,6 @@ export const completePaypalOrder = async (orderId: string) => {
     return result.data;
   } catch (e) {
     const error = e instanceof AxiosError && e.response ? e.response.data : e;
-    console.log(error);
 
     return {
       error:

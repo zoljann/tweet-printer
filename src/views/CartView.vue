@@ -4,7 +4,8 @@ import { loadScript } from '@paypal/paypal-js';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
 import { completePaypalOrder, createOrder } from '../api';
-import { ICartItem, IOrderPayload, Product, ProductColor } from '../interface';
+import { ICartItem, IOrderPayload, Product } from '../interface';
+import { formatColorName, formatProductName } from '../helpers';
 
 const router = useRouter();
 const store = useStore();
@@ -158,24 +159,6 @@ const removeAllItemsFromCart = () => {
   store.cartItems = [];
 
   router.push({ name: 'home' });
-};
-
-const formatColorName = (color: ProductColor) => {
-  switch (color) {
-    case ProductColor.BLACK:
-      return 'Crna';
-    case ProductColor.WHITE:
-      return 'Bijela';
-  }
-};
-
-const formatProductName = (product: Product) => {
-  switch (product) {
-    case Product.SHIRT:
-      return 'Majica';
-    case Product.MUG:
-      return 'Šolja';
-  }
 };
 
 onBeforeMount(async () => {
