@@ -7,9 +7,9 @@ const router = useRouter();
 <template>
   <div class="container">
     <div class="content">
-      <h3>Kako isprintati tvit na majicu</h3>
+      <h2>Kako isprintati tvit na majicu</h2>
       <h4>1. Izaberi tvit koji želiš isprintati</h4>
-      Otvori tvit i kopiraj njegov link, ili klikni na dugme share zatim
+      Otvori tvit i kopiraj njegov link, ili klikni na dugme share zatim na
       <span class="important">copy link</span>
       <img class="desktop" src="https://i.imgur.com/ULflQkT.png" />
       <img class="mobile" src="https://i.imgur.com/hDKOGHb.png" />
@@ -17,15 +17,14 @@ const router = useRouter();
       Otiđi na početnu stranicu
       <span class="home-page" @click="router.push({ name: 'home' })"
         >isprintajsvojtvit.com</span
-      >, zatim zalijepi kopirani link u polje i klikni na
+      >, zatim zalijepi kopirani link u polje i klikni na dugme
       <span class="important">napravi majicu</span>
       <img class="mobile" src="https://i.imgur.com/N2e538H.png" />
       <img class="desktop" src="https://i.imgur.com/dwVAQyB.png" />
       <h4>3. Uredi majicu po svojim željama</h4>
       Odaberi boju, veličinu i poziciju printa zatim na dnu klikni na dugme
       <span class="important">dodaj u korpu</span> da bi naručio majicu. Ukoliko
-      imaš neke posebne želje ili nemaš link tvita a imaš samo sliku i slično,
-      piši nam na instagramu
+      i dalje imaš nekih pitanja, piši nam na instagramu
       <a
         class="home-page"
         href="https://www.instagram.com/isprintajsvojtvit"
@@ -49,14 +48,13 @@ const router = useRouter();
 }
 
 .content {
-  width: 50%;
+  width: 80%;
 
-  h3,
+  h2,
   p {
     text-align: center;
   }
 
-  h3,
   h4,
   .important {
     color: var(--text-color-error);
@@ -66,7 +64,7 @@ const router = useRouter();
 img {
   display: block;
   margin: 0.5rem 0 0.5rem;
-  width: 70%;
+  width: 45%;
 }
 
 .mobile {

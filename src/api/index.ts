@@ -96,3 +96,21 @@ export const completePaypalOrder = async (orderId: string) => {
     };
   }
 };
+
+export const cancelPaypalTransation = async (paypalOrderId: string) => {
+  try {
+    const result = await http.post('/order/cancel-paypal-order', {
+      paypalOrderId,
+    });
+
+    return result.data;
+  } catch (e) {
+    const error = e instanceof AxiosError && e.response ? e.response.data : e;
+
+    return {
+      error:
+        error.message ||
+        'Došlo je do greške prilikom plaćanja, pokušaj opet 😭',
+    };
+  }
+};

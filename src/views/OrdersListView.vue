@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import moment from 'moment';
 import OrderViewModal from '../components/OrderViewModal.vue';
 import { getAllOrders, updateStatusByOrderId } from '../api';
 
 const orders = ref<any[]>([]);
 const selectedOrder = ref<any>(null);
 const statuses = [
-  { value: 'unpaid', label: 'Nije plaćeno' },
+  { value: 'payinCreated', label: 'Započeto plaćanje' },
+  { value: 'ordered', label: 'Naručeno' },
   { value: 'paid', label: 'Plaćeno' },
-  { value: 'done', label: 'Poslano' },
+  { value: 'done', label: 'Završeno' },
 ];
 
 const updateOrderStatus = async (orderId: string, status: string) => {
@@ -20,6 +22,10 @@ const updateOrderStatus = async (orderId: string, status: string) => {
   } else if (error) {
     alert(error);
   }
+};
+
+const formatCreatedDate = (date: string) => {
+  return moment(date).format('DD.MM.YYYY, HH:mm');
 };
 
 onMounted(async () => {
@@ -40,6 +46,7 @@ onMounted(async () => {
           <th>Ukupno</th>
           <th>Dostava</th>
           <th>Paypal ID narudžbe</th>
+          <th>Datum</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -60,6 +67,7 @@ onMounted(async () => {
             {{ item.shipping === 'pickup' ? 'Pouzećem' : 'Kartica/Paypal' }}
           </td>
           <td>{{ item.paypalOrderId ? item.paypalOrderId : '-' }}</td>
+          <td>{{ formatCreatedDate(item.createdAt) }}</td>
           <td class="select">
             <select
               :disabled="item.status === 'done'"

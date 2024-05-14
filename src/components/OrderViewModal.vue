@@ -10,6 +10,21 @@ const emit = defineEmits(['modal-closed']);
 const showModal = ref(true);
 const selectedOrder = ref(props.order);
 
+const formatStatusName = (status: string): string => {
+  switch (status) {
+    case 'payinCreated':
+      return 'započeto plaćanje';
+    case 'ordered':
+      return 'naručeno';
+    case 'paid':
+      return 'plaćeno';
+    case 'done':
+      return 'završeno';
+    default:
+      return '';
+  }
+};
+
 const closeModal = () => {
   showModal.value = false;
   emit('modal-closed');
@@ -19,15 +34,23 @@ const closeModal = () => {
 <template>
   <div v-if="showModal" class="modal-overlay">
     <div class="modal-container">
-      <h3>ID: {{ selectedOrder._id }}, status: {{ selectedOrder.status }}</h3>
+      <h4>
+        ID narudžbe: <span class="important">{{ selectedOrder._id }}</span
+        >, status:
+        <span class="important">
+          {{ formatStatusName(selectedOrder.status) }}
+        </span>
+      </h4>
       <div
         class="item"
         v-for="(item, index) in selectedOrder.items"
         :key="index"
       >
-        {{ formatProductName(item.product) }} - vel.{{ item.size }},
-        {{ formatColorName(item.color) }} boja,
-        {{ item.printSide }}
+        <span class="item-description">
+          {{ formatProductName(item.product) }} - vel.{{ item.size }},
+          {{ formatColorName(item.color) }} boja, {{ item.printSide }},
+          print:</span
+        >
         <img
           class="item-image"
           :src="`data:image/jpeg;base64,${item.tweetImageBase64}`"
@@ -90,10 +113,14 @@ const closeModal = () => {
   max-height: 80%;
   overflow-y: scroll;
 
-  h3 {
+  h4 {
     padding-left: 1rem;
     text-align: left;
     width: 80%;
+  }
+
+  .important {
+    color: red;
   }
 }
 
@@ -101,10 +128,16 @@ const closeModal = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
 
-.item-image {
-  width: 50%;
+  &-description {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  &-image {
+    width: 50%;
+    background-color: rgb(77, 77, 77);
+  }
 }
 
 .close-button {

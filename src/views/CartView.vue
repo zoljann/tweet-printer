@@ -3,7 +3,11 @@ import { ref, onBeforeMount, watch } from 'vue';
 import { loadScript } from '@paypal/paypal-js';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
-import { completePaypalOrder, createOrder } from '../api';
+import {
+  cancelPaypalTransation,
+  completePaypalOrder,
+  createOrder,
+} from '../api';
 import { ICartItem, IOrderPayload, Product } from '../interface';
 import { formatColorName, formatProductName } from '../helpers';
 
@@ -49,20 +53,8 @@ const checkIsValidOrder = async () => {
     return;
   }
 
-  if (!/^\+?(?:\d\s?){9,}$/.test(mobileNumber.value)) {
-    inputErrorMessage.value = 'Mobitel se sastoji od najmanje 9 brojeva 😐';
-
-    return;
-  }
-
-  if (!/^[a-zA-Z ]{3,}$/.test(city.value)) {
-    inputErrorMessage.value = 'Grad se sastoji od najmanje 3 slova 😐';
-
-    return;
-  }
-
-  if (!/^[a-zA-Z0-9 ]{3,}$/.test(address.value)) {
-    inputErrorMessage.value = 'Adresa se sastoji od najmanje 3 karaktera 😐';
+  if (!/^\+?(?:\d\s?){3,}$/.test(mobileNumber.value)) {
+    inputErrorMessage.value = 'Mobitel mora sadržavati brojeve 😐';
 
     return;
   }
@@ -183,6 +175,7 @@ watch(showConfirmationModal, (newValue) => {
               },
               async createOrder() {
                 const orderId = await confirmOrder();
+                isConfirmButtonDisabled.value = false;
 
                 return orderId;
               },
@@ -198,15 +191,16 @@ watch(showConfirmationModal, (newValue) => {
                 } else if (error) {
                   store.notification.text = error;
                   store.notification.type = 'error';
-                  isConfirmButtonDisabled.value = false;
                 }
               },
-              onError: function (error: any) {
-                isConfirmButtonDisabled.value = false;
+              onError(error: any) {
+                store.notification.text =
+                  'Plaćanje nije uspjelo, molimo pokušajte ponovo';
+                store.notification.type = 'error';
                 console.log('Error on approve paypal transaction', error);
               },
-              onCancel: function () {
-                isConfirmButtonDisabled.value = false;
+              async onCancel(data: any) {
+                await cancelPaypalTransation(data.orderID);
               },
             })
             .render('#paypal-button-container');
