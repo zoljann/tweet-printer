@@ -49,7 +49,7 @@ const closeModal = () => {
         <span class="item-description">
           {{ formatProductName(item.product) }} - vel.{{ item.size }},
           {{ formatColorName(item.color) }} boja, {{ item.printSide }},
-          print:</span
+          <a :href="item.tweetUrl" target="_blank">link do tvita</a></span
         >
         <img
           class="item-image"

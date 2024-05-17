@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch } from 'vue';
+import { ref, onBeforeMount, watch, computed } from 'vue';
 import { loadScript } from '@paypal/paypal-js';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
@@ -13,6 +13,7 @@ import { formatColorName, formatProductName } from '../helpers';
 
 const router = useRouter();
 const store = useStore();
+const currency = computed(() => store.getCurrency);
 const cartItems = ref(store.getCartItems);
 const inputErrorMessage = ref('');
 const showConfirmationModal = ref(false);
@@ -252,9 +253,10 @@ watch(state, (newValue) => {
             <span v-if="item.product !== Product.MUG">{{
               item.printSide
             }}</span>
-            <span class="price"
-              >{{ item.price }}KM / {{ item.price * 0.52 }}€</span
-            >
+            <span v-if="currency === 'BAM'" class="price">
+              {{ item.price }}KM
+            </span>
+            <span v-else class="price"> {{ item.price * 0.52 }}€</span>
           </div>
           <button class="remove-item-button" @click="removeItemFromCart(item)">
             <svg
@@ -358,8 +360,8 @@ watch(state, (newValue) => {
         <div class="total-price">
           Cijena narudžbe:
           <span class="total-price-value">
-            {{ calculateTotalPrice() }}KM /
-            {{ calculateTotalPrice() * 0.52 }}€</span
+            <span v-if="currency === 'BAM'">{{ calculateTotalPrice() }}KM</span>
+            <span v-else> {{ calculateTotalPrice() * 0.52 }}€</span></span
           >
         </div>
         <span class="input-error">{{ inputErrorMessage }}</span>
@@ -380,19 +382,28 @@ watch(state, (newValue) => {
           <span v-if="item.product !== Product.MUG">, vel. {{ item.size }}</span
           >,
           <span class="price">
-            {{ item.price }}KM / {{ item.price * 0.52 }}€</span
+            <span v-if="currency === 'BAM'">{{ item.price }}KM</span>
+            <span v-else>{{ item.price * 0.52 }}€</span></span
           >
         </div>
         <span> + dostava </span>
-        <span class="price"
-          >{{ state === 'BiH' ? 5 : 10 }}KM /
-          {{ state === 'BiH' ? 5 * 0.52 : 10 * 0.52 }}€</span
+        <span class="price">
+          <span v-if="currency === 'BAM'">
+            {{ state === 'BiH' ? 5 : 10 }}KM</span
+          >
+          <span v-else>
+            {{ state === 'BiH' ? 5 * 0.52 : 10 * 0.52 }}€</span
+          ></span
         >
         <div class="total-price">
           Ukupno:
           <span class="total">
-            {{ calculateTotalPriceWithShipping() }}KM /
-            {{ (calculateTotalPriceWithShipping() * 0.52).toFixed(2) }}€</span
+            <span v-if="currency === 'BAM'">
+              {{ calculateTotalPriceWithShipping() }}KM</span
+            >
+            <span v-else>
+              {{ (calculateTotalPriceWithShipping() * 0.52).toFixed(2) }}€</span
+            ></span
           >
         </div>
       </div>

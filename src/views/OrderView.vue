@@ -14,6 +14,7 @@ import {
 
 const router = useRouter();
 const store = useStore();
+const currency = computed(() => store.getCurrency);
 const tweetUrl = ref(store.getCurrentTweetUrl);
 const tweetUrlInput = ref('');
 const tweetUrlErrorMessage = ref('');
@@ -243,8 +244,9 @@ onMounted(() => {
       :disabled="imagePreviewLoading || productPreviewErrorMessageBoolean"
       @click="redirectToCartView"
     >
-      {{ productPricePreview }}KM / {{ productPricePreview * 0.52 }}€ | Dodaj u
-      korpu
+      <span v-if="currency === 'BAM'"> {{ productPricePreview }}KM </span>
+      <span v-else> {{ (productPricePreview * 0.52).toFixed(2) }}€ </span> |
+      Dodaj u korpu
     </button>
   </div>
 </template>

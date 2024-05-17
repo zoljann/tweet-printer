@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useStore } from '../store';
 
 const router = useRouter();
@@ -9,6 +9,11 @@ const store = useStore();
 
 const isMenuVisible = ref(false);
 const menuRef = ref<HTMLElement | null>(null);
+const selectedCurrency = ref('');
+const currencies = [
+  { value: 'BAM', label: 'KM' },
+  { value: 'EUR', label: 'EUR' },
+];
 
 const toggleMenu = () => {
   isMenuVisible.value = !isMenuVisible.value;
@@ -44,6 +49,22 @@ const handleClickOutside = (event: MouseEvent) => {
 
 onMounted(() => {
   document.addEventListener('click', handleClickOutside);
+
+  const currencyFromLocalStorage = localStorage.getItem('currency');
+
+  if (currencyFromLocalStorage) {
+    selectedCurrency.value = currencyFromLocalStorage;
+  } else {
+    selectedCurrency.value = 'BAM';
+    localStorage.setItem('currency', 'BAM');
+  }
+
+  store.currency = selectedCurrency.value;
+});
+
+watch(selectedCurrency, (newValue) => {
+  localStorage.setItem('currency', newValue);
+  store.currency = selectedCurrency.value;
 });
 </script>
 
@@ -94,6 +115,11 @@ onMounted(() => {
       <span></span>
     </div>
     <div class="right-side">
+      <select class="currency-dropdown" v-model="selectedCurrency">
+        <option v-for="currency in currencies" :value="currency.value">
+          {{ currency.label }}
+        </option>
+      </select>
       <span class="cart-icon" @click="handleCartClick">
         Korpa
         <svg
@@ -213,6 +239,13 @@ onMounted(() => {
         text-decoration: underline;
       }
     }
+
+    .currency-dropdown {
+      border: none;
+      color: white;
+      background-color: #333333;
+      margin-right: 1rem;
+    }
   }
 }
 
@@ -253,6 +286,10 @@ onMounted(() => {
           color: var(--text-color);
           text-decoration: none;
         }
+      }
+
+      .currency-dropdown {
+        margin-right: 0.5rem;
       }
     }
   }
