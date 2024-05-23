@@ -22,12 +22,7 @@ const address = ref('');
 const email = ref('');
 const shipping = ref('pickup');
 
-const states = [
-  { value: 'BiH', label: 'Bosna i Hercegovina' },
-  { value: 'Hrvatska', label: 'Hrvatska' },
-  { value: 'Srbija', label: 'Srbija' },
-  { value: 'Crna Gora', label: 'Crna Gora' },
-];
+const states = [{ value: 'BiH', label: 'Bosna i Hercegovina' }];
 
 const checkIsValidOrder = async () => {
   if (
@@ -278,7 +273,7 @@ watch(state, (newValue) => {
           </label>
           <div>
             <label class="container">
-              Plaćanje karticama
+              Plaćanje karticama(<span class="text-important">USKORO</span>)
               <input
                 class="shipping-radio-button"
                 type="radio"
@@ -286,6 +281,7 @@ watch(state, (newValue) => {
                 name="state"
                 value="card"
                 required
+                disabled="true"
               />
               <span class="checkmark"></span>
             </label>
@@ -389,7 +385,7 @@ watch(state, (newValue) => {
         Potvrdi narudžbu
       </button>
       <div v-else>
-        <span @click="confirmOrder">ovdje monri ili neki nacin karticnog</span>
+        <span @click="confirmOrder">Button za kartično plaćanje</span>
       </div>
     </div>
   </div>
