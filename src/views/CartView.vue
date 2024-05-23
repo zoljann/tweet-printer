@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { ref, onBeforeMount, watch, computed } from 'vue';
-import { loadScript } from '@paypal/paypal-js';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
-import {
-  cancelPaypalTransation,
-  completePaypalOrder,
-  createOrder,
-} from '../api';
+import { createOrder } from '../api';
 import { ICartItem, IOrderPayload, Product } from '../interface';
 import { formatColorName, formatProductName } from '../helpers';
 
@@ -87,18 +82,12 @@ const confirmOrder = async () => {
     }),
   };
 
-  const { success, paypalPending, orderId, error } = await createOrder(
-    orderPayload
-  );
+  const { success, error } = await createOrder(orderPayload);
 
   if (error) {
     store.notification.text = error;
     store.notification.type = 'error';
     isConfirmButtonDisabled.value = false;
-  }
-
-  if (paypalPending) {
-    return orderId;
   }
 
   if (success) {
@@ -160,63 +149,8 @@ onBeforeMount(async () => {
   }
 });
 
-watch(showConfirmationModal, (newValue) => {
-  if (newValue && shipping.value === 'paypal') {
-    loadScript({
-      clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID,
-      currency: 'EUR',
-    })
-      .then((paypal: any) => {
-        try {
-          paypal
-            .Buttons({
-              style: {
-                label: 'pay',
-                color: 'blue',
-              },
-              async createOrder() {
-                const orderId = await confirmOrder();
-                isConfirmButtonDisabled.value = false;
-
-                return orderId;
-              },
-              async onApprove(data: any) {
-                const { success, error } = await completePaypalOrder(
-                  data.orderID
-                );
-
-                if (success) {
-                  store.notification.text = success;
-                  store.notification.type = 'success';
-                  removeAllItemsFromCart();
-                } else if (error) {
-                  store.notification.text = error;
-                  store.notification.type = 'error';
-                }
-              },
-              onError(error: any) {
-                store.notification.text =
-                  'Plaćanje nije uspjelo, molimo pokušajte ponovo';
-                store.notification.type = 'error';
-                console.log('Error on approve paypal transaction', error);
-              },
-              async onCancel(data: any) {
-                await cancelPaypalTransation(data.orderID);
-              },
-            })
-            .render('#paypal-button-container');
-        } catch (error) {
-          console.error('Failed to render the PayPal buttons', error);
-        }
-      })
-      .catch((error) => {
-        console.error('Failed to load the PayPal JS SDK script', error);
-      });
-  }
-});
-
 watch(state, (newValue) => {
-  shipping.value = newValue !== 'BiH' ? 'paypal' : 'pickup';
+  shipping.value = newValue !== 'BiH' ? 'card' : 'pickup';
 });
 </script>
 
@@ -344,13 +278,13 @@ watch(state, (newValue) => {
           </label>
           <div>
             <label class="container">
-              Plaćanje karticama ili paypalom
+              Plaćanje karticama
               <input
                 class="shipping-radio-button"
                 type="radio"
                 v-model="shipping"
                 name="state"
-                value="paypal"
+                value="card"
                 required
               />
               <span class="checkmark"></span>
@@ -367,7 +301,7 @@ watch(state, (newValue) => {
         <span class="input-error">{{ inputErrorMessage }}</span>
       </form>
       <button class="checkout-button" @click="checkIsValidOrder">
-        {{ shipping === 'paypal' ? 'Plaćanje' : 'Naruči' }}
+        {{ shipping === 'card' ? 'Plaćanje' : 'Naruči' }}
       </button>
     </div>
   </div>
@@ -454,8 +388,8 @@ watch(state, (newValue) => {
       >
         Potvrdi narudžbu
       </button>
-      <div v-else class="paypal-buttons">
-        <div id="paypal-button-container"></div>
+      <div v-else>
+        <span @click="confirmOrder">ovdje monri ili neki nacin karticnog</span>
       </div>
     </div>
   </div>
@@ -551,10 +485,6 @@ watch(state, (newValue) => {
 .text-important {
   color: tomato;
   font-size: 0.7rem;
-}
-
-.paypal-buttons {
-  margin: 1rem;
 }
 
 .checkout {

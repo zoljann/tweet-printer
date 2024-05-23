@@ -45,7 +45,6 @@ onMounted(async () => {
           <th>Mobitel</th>
           <th>Ukupno</th>
           <th>Dostava</th>
-          <th>Paypal ID narudžbe</th>
           <th>Datum</th>
           <th>Status</th>
         </tr>
@@ -64,9 +63,8 @@ onMounted(async () => {
           <td>{{ item.mobileNumber }}</td>
           <td>{{ item.total }}KM / {{ (item.total * 0.52).toFixed(2) }}€</td>
           <td>
-            {{ item.shipping === 'pickup' ? 'Pouzećem' : 'Kartica/Paypal' }}
+            {{ item.shipping === 'pickup' ? 'Pouzećem' : 'Kartica' }}
           </td>
-          <td>{{ item.paypalOrderId ? item.paypalOrderId : '-' }}</td>
           <td>{{ formatCreatedDate(item.createdAt) }}</td>
           <td class="select">
             <select
