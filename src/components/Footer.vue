@@ -19,7 +19,7 @@
       >💰 Više načina plaćanja
       <p>
         Podržavamo više načina plaćanja; prilikom preuzimanja narudžbe, plaćanje
-        VISA ili MASTERCARD karticama💳
+        putem paypala i plaćanje karticama💳
       </p>
     </span>
   </div>
