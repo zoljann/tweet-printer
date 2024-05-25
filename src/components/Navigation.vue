@@ -241,6 +241,7 @@ watch(selectedCurrency, (newValue) => {
     }
 
     .currency-dropdown {
+      font-size: 0.9rem;
       border: none;
       color: white;
       background-color: #333333;

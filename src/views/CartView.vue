@@ -344,7 +344,7 @@ watch(state, (newValue) => {
           </label>
           <div>
             <label class="container">
-              Plaćanje karticama ili paypalom
+              Plaćanje karticama ili PayPalom
               <input
                 class="shipping-radio-button"
                 type="radio"
