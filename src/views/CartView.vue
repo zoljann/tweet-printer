@@ -256,7 +256,9 @@ watch(state, (newValue) => {
             <span v-if="currency === 'BAM'" class="price">
               {{ item.price }}KM
             </span>
-            <span v-else class="price"> {{ item.price * 0.52 }}€</span>
+            <span v-else class="price">
+              {{ (item.price * 0.52).toFixed(2) }}€</span
+            >
           </div>
           <button class="remove-item-button" @click="removeItemFromCart(item)">
             <svg
@@ -361,7 +363,9 @@ watch(state, (newValue) => {
           Cijena narudžbe:
           <span class="total-price-value">
             <span v-if="currency === 'BAM'">{{ calculateTotalPrice() }}KM</span>
-            <span v-else> {{ calculateTotalPrice() * 0.52 }}€</span></span
+            <span v-else>
+              {{ (calculateTotalPrice() * 0.52).toFixed(2) }}€</span
+            ></span
           >
         </div>
         <span class="input-error">{{ inputErrorMessage }}</span>
@@ -383,7 +387,7 @@ watch(state, (newValue) => {
           >,
           <span class="price">
             <span v-if="currency === 'BAM'">{{ item.price }}KM</span>
-            <span v-else>{{ item.price * 0.52 }}€</span></span
+            <span v-else>{{ (item.price * 0.52).toFixed(2) }}€</span></span
           >
         </div>
         <span> + dostava </span>
