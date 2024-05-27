@@ -9,7 +9,10 @@ const router = useRouter();
     <div class="content">
       <h2>Kako isprintati tvit na majicu</h2>
       <h4>1. Izaberi tvit koji želiš isprintati</h4>
-      Otvori tvit i kopiraj njegov link, ili klikni na dugme share zatim na
+      Otvori tvit koji želiš(<span class="important"
+        >mora biti link sa twittera</span
+      >, ne može sa instagrama) i kopiraj njegov link, ili klikni na dugme share
+      zatim na
       <span class="important">copy link</span>
       <img class="desktop" src="https://i.imgur.com/ULflQkT.png" />
       <img class="mobile" src="https://i.imgur.com/hDKOGHb.png" />

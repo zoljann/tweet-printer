@@ -15,7 +15,7 @@ const redirectToOrderView = () => {
     setErrorMessage(
       !tweetUrl.value
         ? 'Prvo moraš zalijepiti link tvita 😭'
-        : 'Nisi zalijepio ispravan link 😭'
+        : 'Nisi zalijepio ispravan link tvita sa Twittera/X-a 😭'
     );
 
     return;

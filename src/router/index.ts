@@ -49,6 +49,11 @@ const router = createRouter({
       component: () => import('../views/HowToPrintView.vue'),
     },
     {
+      path: '/najpopularnije-majice',
+      name: 'popular-shirts',
+      component: () => import('../views/PopularShirtsView.vue'),
+    },
+    {
       path: '/:catchAll(.*)*',
       name: 'catchAll',
       component: () => import('../views/NotFoundView.vue'),

@@ -77,17 +77,14 @@ watch(selectedCurrency, (newValue) => {
         @click="router.push({ name: 'home' })"
       />
       <span class="item" @click="router.push({ name: 'home' })">Početna</span>
+      <span class="item" @click="router.push({ name: 'popular-shirts' })"
+        >Najpopularnije majice</span
+      >
       <span class="item" @click="router.push({ name: 'questions' })"
         >Česta pitanja</span
       >
       <span class="item" @click="router.push({ name: 'howtoprint' })"
         >Kako isprintati tvit na majicu</span
-      >
-      <a
-        class="item"
-        href="https://www.instagram.com/isprintajsvojtvit"
-        target="_blank"
-        >Instagram</a
       >
       <span class="toggle-menu" @click="toggleMenu" @click.stop>
         <svg
@@ -169,6 +166,12 @@ watch(selectedCurrency, (newValue) => {
         @click="handleMobileMenuclick('questions')"
         :class="{ activeroute: route.name === 'questions' }"
         >❓ Česta pitanja</span
+      >
+      <span
+        class="item"
+        @click="handleMobileMenuclick('popular-shirts')"
+        :class="{ activeroute: route.name === 'popular-shirts' }"
+        >👕 Najpopularnije majice</span
       >
       <span
         class="item"

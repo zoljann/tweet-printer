@@ -43,7 +43,8 @@ const selectedPrintSide = ref(ProductPrintSide.FRONT);
 
 const updateTweetUrl = () => {
   if (!isValidUrl(tweetUrlInput.value) || !tweetUrlInput.value) {
-    tweetUrlErrorMessage.value = 'Nisi zalijepio ispravan link😭';
+    tweetUrlErrorMessage.value =
+      'Nisi zalijepio ispravan link tvita sa Twittera/X-a😭';
 
     return;
   }
@@ -74,7 +75,7 @@ const getProductPreview = async () => {
 
   if (error) {
     productPreviewErrorMessage.value =
-      'Došlo je do greške! Pokušaj ponovo kasnije.';
+      'Ne možemo dohvatiti tvit sa zadanim linkom, probaj drugi link.';
     imagePreviewLoading.value = false;
 
     return;

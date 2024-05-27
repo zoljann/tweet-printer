@@ -4,7 +4,13 @@ export const isValidUrl = (url: any) => {
   try {
     const newUrl = new URL(url);
 
-    return newUrl.protocol === 'http:' || newUrl.protocol === 'https:';
+    const validProtocols = ['http:', 'https:'];
+    const validHostnames = ['twitter.com', 'x.com'];
+
+    return (
+      validProtocols.includes(newUrl.protocol) &&
+      validHostnames.includes(newUrl.hostname)
+    );
   } catch (err) {
     return false;
   }
