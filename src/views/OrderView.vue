@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useStore } from '../store';
 import { isValidUrl } from '../helpers';
 import { createImagePreview } from '../api';
@@ -13,6 +13,7 @@ import {
 } from '../interface';
 
 const router = useRouter();
+const route = useRoute();
 const store = useStore();
 const currency = computed(() => store.getCurrency);
 const tweetUrl = ref(store.getCurrentTweetUrl);
@@ -126,7 +127,12 @@ const setSelectedPrintSide = (side: ProductPrintSide) => {
 };
 
 onMounted(() => {
-  tweetUrlInput.value = tweetUrl.value;
+  if (route.query.tweetUrl && isValidUrl(route.query.tweetUrl)) {
+    tweetUrlInput.value = route.query.tweetUrl as string;
+    tweetUrl.value = route.query.tweetUrl as string;
+  } else {
+    tweetUrlInput.value = tweetUrl.value;
+  }
 
   getProductPreview();
 });

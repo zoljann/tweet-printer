@@ -2,40 +2,35 @@
   <div class="questions">
     <div class="content">
       <h2>Česta pitanja i nešto o nama🤞</h2>
-      <h3>Kakvog su kvaliteta majice?👕</h3>
+      <h3>O majicama i veličinama👕</h3>
       <p>
-        Naša kolekcija majica odlikuje se vrhunskom kvalitetom, koristeći
-        <span class="important">pažljivo odabrani pamuk</span> i posebnu pažnju
-        pri šivanju kako bi se osigurala dugotrajnost i udobnost. Posvećenost
-        detaljima osigurava da svaka majica nosi pečat vrhunske izrade i pažnje
-        prema kvalitetu. Ove proizvode odlikuje trajna vrijednost, pružajući
-        zadovoljstvo korisnicima kroz dugi vremenski period. Njihova mekana
-        tkanina pruža osjećaj ugodnosti tokom cijelog dana. Ove majice su
-        izdržljive i zadržavaju oblik čak i nakon višestrukih pranja.
+        Naše majice su poznate po svojoj vrhunskoj kvaliteti i udobnosti.
+        Izrađene su od visokokvalitetnog pamuka koji pruža mekoću i
+        dugotrajnost. Zahvaljujući pažljivoj izradi, ove majice zadržavaju svoj
+        oblik i boju i nakon mnogih pranja. Dostupne su u crnim i bijelim
+        bojama, te veličinama S, M, L i XL. Veličinu u centimetrima možete
+        pogledati
+        <a href="https://i.imgur.com/U9mtkwx.jpeg" target="_blank"
+          >klikom ovdje</a
+        >.
       </p>
-      <h3>Kako funkcioniše dostava i plaćanje?🚚💳</h3>
+      <h3>Dostava i plaćanje🚚💳</h3>
       <p>
         Prilikom porudžbine imamo tri opcije plaćanja, a to su:
         <span class="important">plaćanje pouzećem</span>(samo BiH),
         <span class="important">plaćanje debitnim/kreditnim karticama</span> ili
-        <span class="important">PayPalom</span>. Narudžba je na vašoj adresi
-        kroz 3-5 radnih dana u BiH, a za ostale države 5-7 radnih dana(uz
-        odrđene varijacije). Povrate novca ukoliko niste zadovoljni vršimo kroz
-        24h od primanja porudžbine.
+        <span class="important">PayPalom</span>. Narudžba se šalje brzom poštom
+        i na vašoj adresi je kroz 3-5 radnih dana u BiH, a za ostale države 5-7
+        radnih dana. Razlog dužine čekanja je što se svaka majica izrađuje
+        posebno za vas, sa vašim izborom tvita. Povrate novca ukoliko niste
+        zadovoljni vršimo kroz 24h od primanja porudžbine.
       </p>
       <h3>O nama</h3>
       <p>
-        Naša misija je spoj strasti prema vrhunskim majicama i predanosti
-        pružanju izvanredne usluge našim kupcima. Ponosno ističemo da nismo
-        običan prodavač majica - svaka majica koju nudimo izrađuje se po
-        narudžbi s pažnjom i ljubavlju. Naš tim posvećen je pružanju vrhunske
-        korisničke podrške i iskustva kupovine obogaćenog ljubaznošću i
-        profesionalnošću. Vjerujemo da svaka kupovina predstavlja priliku za
-        stvaranje posebnih veza i nezaboravnih iskustava.
-      </p>
-      <h3>Slobodno pitaj🙌</h3>
-      <p>
-        Za ostala pitanja, suradnje, pohvale, kritike i ostalo možeš nam
+        Mali tim koji je posvećen pružanju vrhunske korisničke podrške i
+        iskustva kupovine. Vjerujemo da svaka kupovina predstavlja priliku za
+        stvaranje posebnih veza i nezaboravnih iskustava. Za ostala pitanja,
+        suradnje, pohvale, kritike i ostalo možeš nam
         <a href="mailto:isprintajsvojtvit@gmail.com">poslati email</a> ili ako
         više preferiraš možeš nam se obratiti putem instagrama direktnom porukom
         na

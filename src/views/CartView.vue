@@ -319,7 +319,7 @@ watch(state, (newValue) => {
           <input type="text" v-model="city" placeholder="Grad" required />
         </div>
         <div class="form-group">
-          <label>Adresa</label>
+          <label>Adresa i poštanski broj</label>
           <input type="text" v-model="address" placeholder="Adresa" required />
         </div>
         <div class="form-group">
