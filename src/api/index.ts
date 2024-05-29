@@ -31,9 +31,13 @@ export const createImagePreview = async ({
   }
 };
 
-export const getAllOrders = async () => {
+export const getAllOrders = async (page: number) => {
+  const params = {
+    page,
+  };
+
   try {
-    const result = await http.get('/order/get-all');
+    const result = await http.get('/order/get-all', { params });
 
     return result.data;
   } catch (e) {

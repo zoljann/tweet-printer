@@ -285,7 +285,7 @@ watch(state, (newValue) => {
       <h3>Informacije o primaocu</h3>
       <form novalidate>
         <div class="form-group">
-          <label>Ime i prezime</label>
+          <label>Ime i prezime <span class="text-important">*</span></label>
           <input
             type="text"
             v-model="name"
@@ -294,7 +294,7 @@ watch(state, (newValue) => {
           />
         </div>
         <div class="form-group">
-          <label>Broj mobitela</label>
+          <label>Broj mobitela <span class="text-important">*</span></label>
           <input
             type="tel"
             v-model="mobileNumber"
@@ -303,7 +303,9 @@ watch(state, (newValue) => {
           />
         </div>
         <div class="form-group">
-          <label for="state">Država</label>
+          <label for="state"
+            >Država <span class="text-important">*</span></label
+          >
           <select id="state" v-model="state" name="state" required>
             <option
               class="state-option"
@@ -315,20 +317,23 @@ watch(state, (newValue) => {
           </select>
         </div>
         <div class="form-group">
-          <label>Grad</label>
+          <label>Grad <span class="text-important">*</span></label>
           <input type="text" v-model="city" placeholder="Grad" required />
         </div>
         <div class="form-group">
-          <label>Adresa i poštanski broj</label>
-          <input type="text" v-model="address" placeholder="Adresa" required />
+          <label
+            >Adresa i poštanski broj
+            <span class="text-important">*</span></label
+          >
+          <input
+            type="text"
+            v-model="address"
+            placeholder="Adresa i poštanski broj"
+            required
+          />
         </div>
         <div class="form-group">
-          <label
-            >Email
-            <span class="text-important"
-              >*obavezno zbog potvrde narudžbe</span
-            ></label
-          >
+          <label>Email <span class="text-important">*</span></label>
           <input type="text" v-model="email" placeholder="E-mail" />
         </div>
         <div class="shipping-input">

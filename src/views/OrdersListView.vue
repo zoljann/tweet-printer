@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import moment from 'moment';
 import OrderViewModal from '../components/OrderViewModal.vue';
 import { getAllOrders, updateStatusByOrderId } from '../api';
 
 const orders = ref<any[]>([]);
 const selectedOrder = ref<any>(null);
+const currentPage = ref(1);
+const totalPages = ref(null);
+const totalOrders = ref(null);
 const statuses = [
   { value: 'payinCreated', label: 'Započeto plaćanje' },
   { value: 'ordered', label: 'Naručeno' },
@@ -17,7 +20,7 @@ const updateOrderStatus = async (orderId: string, status: string) => {
   const { success, error } = await updateStatusByOrderId(orderId, status);
 
   if (success) {
-    orders.value = await getAllOrders();
+    fetchOrders();
     alert(success);
   } else if (error) {
     alert(error);
@@ -28,12 +31,36 @@ const formatCreatedDate = (date: string) => {
   return moment(date).format('DD.MM.YYYY, HH:mm');
 };
 
+const fetchOrders = async () => {
+  const {
+    totalPages: tp,
+    totalOrders: to,
+    orders: o,
+  } = await getAllOrders(currentPage.value);
+
+  totalPages.value = tp;
+  totalOrders.value = to;
+  orders.value = o;
+};
+
 onMounted(async () => {
-  orders.value = await getAllOrders();
+  await fetchOrders();
+});
+
+watch(currentPage, async () => {
+  await fetchOrders();
 });
 </script>
 
 <template>
+  <div class="pagination">
+    <button @click="currentPage--" :disabled="currentPage === 1">🡸</button>
+    <span class="current-page"> {{ currentPage }} od {{ totalPages }} </span>
+    <button @click="currentPage++" :disabled="currentPage === totalPages">
+      🢂
+    </button>
+    <span class="total-orders">Ukupno: {{ totalOrders }}</span>
+  </div>
   <div class="wrapper" v-if="orders.length">
     <table>
       <thead>
@@ -139,6 +166,37 @@ tr {
     background-color: #222222;
     color: tomato;
   }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  background-color: tomato;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  margin: 0 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.current-page {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.total-orders {
+  position: absolute;
+  right: 1rem;
 }
 
 @media screen and (max-width: 768px) {

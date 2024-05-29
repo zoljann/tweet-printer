@@ -76,7 +76,9 @@ watch(selectedCurrency, (newValue) => {
         src="../assets/logo.png"
         @click="router.push({ name: 'home' })"
       />
-      <span class="item" @click="router.push({ name: 'home' })">Početna</span>
+      <span class="item" @click="router.push({ name: 'home' })"
+        >Napravi majicu</span
+      >
       <span class="item" @click="router.push({ name: 'popular-shirts' })"
         >Najpopularnije majice</span
       >
@@ -159,19 +161,19 @@ watch(selectedCurrency, (newValue) => {
         class="item"
         @click="handleMobileMenuclick('home')"
         :class="{ activeroute: route.name === 'home' }"
-        >🏠 Početna</span
+        >👕 Napravi majicu</span
       >
       <span
         class="item"
         @click="handleMobileMenuclick('questions')"
         :class="{ activeroute: route.name === 'questions' }"
-        >❓ Česta pitanja</span
+        >🤔 Česta pitanja</span
       >
       <span
         class="item"
         @click="handleMobileMenuclick('popular-shirts')"
         :class="{ activeroute: route.name === 'popular-shirts' }"
-        >👕 Najpopularnije majice</span
+        >🤙 Najpopularnije majice</span
       >
       <span
         class="item"
