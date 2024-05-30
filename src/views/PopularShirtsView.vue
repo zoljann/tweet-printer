@@ -74,9 +74,15 @@ onMounted(async () => {
     img {
       cursor: pointer;
       width: 100%;
+
+      &:hover {
+        background-color: rgb(63, 63, 63);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.521);
+      }
     }
   }
 }
+
 @media screen and (max-width: 768px) {
   .wrapper {
     width: 100%;

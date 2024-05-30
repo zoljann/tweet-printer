@@ -10,6 +10,7 @@ import {
 } from '../api';
 import { ICartItem, IOrderPayload, Product } from '../interface';
 import { formatColorName, formatProductName } from '../helpers';
+import ImageViewModal from '../components/ImageViewModal.vue';
 
 const router = useRouter();
 const store = useStore();
@@ -18,6 +19,7 @@ const cartItems = ref(store.getCartItems);
 const inputErrorMessage = ref('');
 const showConfirmationModal = ref(false);
 const isConfirmButtonDisabled = ref(false);
+const selectedImage = ref('');
 
 const name = ref('');
 const mobileNumber = ref('');
@@ -241,7 +243,11 @@ watch(state, (newValue) => {
     <div class="cart">
       <div v-for="(item, index) in cartItems" :key="index" class="cart-item">
         <div class="product-info">
-          <img :src="item.image" class="product-image" />
+          <img
+            @click="selectedImage = item.image"
+            :src="item.image"
+            class="product-image"
+          />
           <div class="details-and-price">
             <span class="product-name">
               {{ formatProductName(item.product) }}
@@ -468,6 +474,12 @@ watch(state, (newValue) => {
       </div>
     </div>
   </div>
+
+  <ImageViewModal
+    v-if="selectedImage"
+    :image="selectedImage"
+    @modal-closed="selectedImage = ''"
+  />
 </template>
 <style scoped lang="scss">
 .wrapper {
@@ -534,6 +546,7 @@ watch(state, (newValue) => {
   .product-image {
     width: 15rem;
     height: 15rem;
+    cursor: pointer;
   }
 
   .details-and-price {
