@@ -11,6 +11,7 @@ const totalPages = ref(null);
 const totalOrders = ref(null);
 const statuses = [
   { value: 'ordered', label: 'Naručeno' },
+  { value: 'payinCreated', label: 'Započeto plaćanje' },
   { value: 'sent', label: 'Poslano' },
   { value: 'cancelled', label: 'Otkazano' },
   { value: 'paid', label: 'Plaćeno' },
