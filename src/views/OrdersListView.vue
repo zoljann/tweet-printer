@@ -2,7 +2,7 @@
 import { ref, onMounted, watch } from 'vue';
 import moment from 'moment';
 import OrderViewModal from '../components/OrderViewModal.vue';
-import { getAllOrders, updateStatusByOrderId } from '../api';
+import { getAllOrders, updateByOrderId } from '../api';
 
 const orders = ref<any[]>([]);
 const selectedOrder = ref<any>(null);
@@ -17,8 +17,12 @@ const statuses = [
   { value: 'done', label: 'Završeno' },
 ];
 
-const updateOrderStatus = async (orderId: string, status: string) => {
-  const { success, error } = await updateStatusByOrderId(orderId, status);
+const updateOrderById = async (
+  orderId: string,
+  status: string,
+  note?: string
+) => {
+  const { success, error } = await updateByOrderId(orderId, status, note);
 
   if (success) {
     fetchOrders();
@@ -74,6 +78,7 @@ watch(currentPage, async () => {
           <th>Dostava</th>
           <th>Paypal ID narudžbe</th>
           <th>Datum</th>
+          <th>Bilješka</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -96,11 +101,21 @@ watch(currentPage, async () => {
           </td>
           <td>{{ item.paypalOrderId ? item.paypalOrderId : '-' }}</td>
           <td>{{ formatCreatedDate(item.createdAt) }}</td>
+          <td>
+            <textarea
+              v-model="item.note"
+              :disabled="item.status === 'done' || item.status === 'cancelled'"
+              @blur="updateOrderById(item._id, item.status, item.note)"
+              @click.stop
+              class="note-textarea"
+            ></textarea>
+          </td>
+
           <td class="select">
             <select
               :disabled="item.status === 'done' || item.status === 'cancelled'"
               v-model="item.status"
-              @change="updateOrderStatus(item._id, item.status)"
+              @change="updateOrderById(item._id, item.status)"
               @click.stop
             >
               <option v-for="status in statuses" :value="status.value">
@@ -198,6 +213,11 @@ tr {
 .total-orders {
   position: absolute;
   right: 1rem;
+}
+
+.note-textarea {
+  width: 100%;
+  border: none;
 }
 
 @media screen and (max-width: 768px) {

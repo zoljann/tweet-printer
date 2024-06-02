@@ -49,14 +49,16 @@ export const getAllOrders = async (page: number) => {
   }
 };
 
-export const updateStatusByOrderId = async (
+export const updateByOrderId = async (
   orderId: string,
-  status: string
+  status: string,
+  note?: string
 ) => {
   try {
-    const result = await http.patch('/order/update-status', {
+    const result = await http.patch('/order/update', {
       orderId,
       status,
+      note,
     });
 
     return result.data;
@@ -64,7 +66,7 @@ export const updateStatusByOrderId = async (
     const error = e instanceof AxiosError && e.response ? e.response.data : e;
 
     return {
-      error: error.message || 'Došlo je do greške prilikom ažuriranja statusa',
+      error: error.message || 'Došlo je do greške prilikom ažuriranja narudžbe',
     };
   }
 };
