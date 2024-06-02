@@ -10,8 +10,9 @@ const currentPage = ref(1);
 const totalPages = ref(null);
 const totalOrders = ref(null);
 const statuses = [
-  { value: 'payinCreated', label: 'Započeto plaćanje' },
   { value: 'ordered', label: 'Naručeno' },
+  { value: 'sent', label: 'Poslano' },
+  { value: 'cancelled', label: 'Otkazano' },
   { value: 'paid', label: 'Plaćeno' },
   { value: 'done', label: 'Završeno' },
 ];
@@ -65,7 +66,6 @@ watch(currentPage, async () => {
     <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Ime i prezime</th>
           <th>Email</th>
           <th>Adresa</th>
@@ -81,10 +81,11 @@ watch(currentPage, async () => {
         <tr
           v-for="(item, index) in orders"
           :key="index"
-          :class="{ disabled: item.status === 'done' }"
+          :class="{
+            disabled: item.status === 'done' || item.status === 'cancelled',
+          }"
           @click="selectedOrder = item"
         >
-          <td>{{ item._id }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.email }}</td>
           <td>{{ item.state }}, {{ item.city }}, {{ item.address }}</td>
@@ -97,7 +98,7 @@ watch(currentPage, async () => {
           <td>{{ formatCreatedDate(item.createdAt) }}</td>
           <td class="select">
             <select
-              :disabled="item.status === 'done'"
+              :disabled="item.status === 'done' || item.status === 'cancelled'"
               v-model="item.status"
               @change="updateOrderStatus(item._id, item.status)"
               @click.stop

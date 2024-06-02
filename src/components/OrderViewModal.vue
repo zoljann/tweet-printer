@@ -20,6 +20,10 @@ const formatStatusName = (status: string): string => {
       return 'plaćeno';
     case 'done':
       return 'završeno';
+    case 'cancelled':
+      return 'otkazano';
+    case 'sent':
+      return 'poslano';
     default:
       return '';
   }
