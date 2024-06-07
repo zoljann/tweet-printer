@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { getCurrentInstance } from 'vue';
 import { useStore } from '../store';
 import { isValidUrl } from '../helpers';
 import { createImagePreview } from '../api';
@@ -104,6 +105,14 @@ const redirectToCartView = () => {
   storedCartItems.push(cartItem);
   localStorage.setItem('cartItems', JSON.stringify(storedCartItems));
   store.cartItems.push(cartItem);
+
+  const { proxy } = getCurrentInstance();
+
+  proxy.$gtag.event('add_to_cart', {
+    event_label: 'Dodaj u korpu - button',
+    value: productPricePreview.value,
+    tweetUrl: tweetUrl.value,
+  });
 
   router.push({ name: 'cart' });
 };
