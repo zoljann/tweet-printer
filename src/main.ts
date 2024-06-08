@@ -9,7 +9,7 @@ const app = createApp(App);
 
 app.use(VueGtag, {
   property: {
-    id: 'G-KXP7J3VH3H',
+    id: `${import.meta.env.VITE_GTAG_ID}`,
   },
 });
 app.use(router);
