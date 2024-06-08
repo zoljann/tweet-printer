@@ -76,13 +76,9 @@ const checkIsValidOrder = async () => {
   event('order_button', {
     event_label: 'Naruči - button',
     total_price: calculateTotalPriceWithShipping(),
-    buyer: {
-      name: name.value,
-      mobileNumber: mobileNumber.value,
-      city: city.value,
-      address: address.value,
-      email: email.value,
-    },
+    buyer_name: name.value,
+    buyer_address: address.value,
+    buyer_mobile: mobileNumber.value,
   });
 };
 
