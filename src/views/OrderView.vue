@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { useGtag } from 'vue-gtag-next';
 import { useStore } from '../store';
 import { isValidUrl } from '../helpers';
 import { createImagePreview } from '../api';
@@ -15,6 +16,7 @@ import {
 const router = useRouter();
 const route = useRoute();
 const store = useStore();
+const { event } = useGtag();
 const currency = computed(() => store.getCurrency);
 const tweetUrl = ref(store.getCurrentTweetUrl);
 const tweetUrlInput = ref('');
@@ -106,6 +108,11 @@ const redirectToCartView = () => {
   store.cartItems.push(cartItem);
 
   router.push({ name: 'cart' });
+
+  event('add_to_cart_button', {
+    event_label: 'Dodaj u korpu - button',
+    tweetUrl: tweetUrl.value,
+  });
 };
 
 /* const setSelectedProduct = (product: Product) => {

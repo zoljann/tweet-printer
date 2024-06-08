@@ -3,6 +3,7 @@ import { ref, onBeforeMount, watch, computed } from 'vue';
 import { loadScript } from '@paypal/paypal-js';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
+import { useGtag } from 'vue-gtag-next';
 import {
   cancelPaypalTransation,
   completePaypalOrder,
@@ -14,6 +15,7 @@ import ImageViewModal from '../components/ImageViewModal.vue';
 
 const router = useRouter();
 const store = useStore();
+const { event } = useGtag();
 const currency = computed(() => store.getCurrency);
 const cartItems = ref(store.getCartItems);
 const inputErrorMessage = ref('');
@@ -70,6 +72,11 @@ const checkIsValidOrder = async () => {
 
   inputErrorMessage.value = '';
   showConfirmationModal.value = true;
+
+  event('order_button', {
+    event_label: 'Naruči - button',
+    total_price: calculateTotalPriceWithShipping(),
+  });
 };
 
 const confirmOrder = async () => {

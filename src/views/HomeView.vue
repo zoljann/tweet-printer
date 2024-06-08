@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useGtag } from 'vue-gtag-next';
 import Footer from '../components/Footer.vue';
 import { useRouter } from 'vue-router';
 import { useStore } from '../store';
@@ -7,6 +8,7 @@ import { isValidUrl } from '../helpers';
 
 const router = useRouter();
 const store = useStore();
+const { event } = useGtag();
 const tweetUrl = ref('');
 const errorMessage = ref('');
 
@@ -24,6 +26,11 @@ const redirectToOrderView = () => {
   errorMessage.value = '';
   store.currentTweetUrl = tweetUrl.value;
   router.push({ name: 'order' });
+
+  event('create_shirt_button', {
+    event_label: 'Napravi majicu - button',
+    tweetUrl: tweetUrl.value,
+  });
 };
 
 const setErrorMessage = (message: string) => {

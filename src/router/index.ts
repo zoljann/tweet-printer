@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router';
+import { trackRouter } from 'vue-gtag-next';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -59,6 +60,10 @@ const router = createRouter({
       component: () => import('../views/NotFoundView.vue'),
     },
   ],
+});
+
+trackRouter(router, {
+  useScreenview: true,
 });
 
 export default router;
