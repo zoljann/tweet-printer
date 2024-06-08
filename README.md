@@ -11,7 +11,7 @@ A full-stack web page project with a tight deadline, aimed at creating a simple 
 
 ### Preview/demo
 
-- link to youtube video
+- YouTube video: https://youtu.be/2IetqVOYE0k?si=5ibooYJwR4qUibXY
 
 ### Getting Started
 
