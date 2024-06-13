@@ -91,7 +91,7 @@ export const getAllImages = async () => {
   try {
     const result = await http.get('/product/get-all-images');
 
-    return result.data;
+    return result.data.reverse();
   } catch (e) {
     const error = e instanceof AxiosError && e.response ? e.response.data : e;
 
