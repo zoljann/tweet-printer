@@ -52,13 +52,7 @@ const checkIsValidOrder = async () => {
     return;
   }
 
-  if (!/^[a-zA-Z ]{6,}$/.test(name.value)) {
-    inputErrorMessage.value = 'Ime i prezime se sastoji od najmanje 6 slova 😐';
-
-    return;
-  }
-
-  if (!/^\+?(?:\d\s?){3,}$/.test(mobileNumber.value)) {
+  if (!/^\+?(?:\d\s?){1,}$/.test(mobileNumber.value)) {
     inputErrorMessage.value = 'Mobitel mora sadržavati brojeve 😐';
 
     return;
@@ -77,8 +71,6 @@ const checkIsValidOrder = async () => {
     event_label: 'Naruči - button',
     total_price: calculateTotalPriceWithShipping(),
     buyer_name: name.value,
-    buyer_address: address.value,
-    buyer_mobile: mobileNumber.value,
   });
 };
 
@@ -170,6 +162,8 @@ onBeforeMount(async () => {
   if (!cartItems.value.length) {
     router.push({ name: 'home' });
   }
+
+  window.scrollTo(0, 0);
 });
 
 watch(showConfirmationModal, (newValue) => {
