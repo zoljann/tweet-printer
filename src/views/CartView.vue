@@ -33,9 +33,9 @@ const shipping = ref('pickup');
 
 const states = [
   { value: 'BiH', label: 'Bosna i Hercegovina' },
-  { value: 'Hrvatska', label: 'Hrvatska' },
+ /*  { value: 'Hrvatska', label: 'Hrvatska' },
   { value: 'Srbija', label: 'Srbija' },
-  { value: 'Crna Gora', label: 'Crna Gora' },
+  { value: 'Crna Gora', label: 'Crna Gora' }, */
 ];
 
 const checkIsValidOrder = async () => {
@@ -359,7 +359,7 @@ watch(state, (newValue) => {
             />
             <span class="checkmark"></span>
           </label>
-          <div>
+          <div v-if="false"> <!-- Disabled card/paypal payin-->
             <label class="container">
               Plaćanje karticama ili PayPalom
               <input
